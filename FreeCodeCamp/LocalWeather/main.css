@@ -1,0 +1,11 @@
+#location{
+    font-size: 20px;
+}
+#weatherDesc{
+    font-size: 18px;
+    font-style: italic;
+}
+#temp{
+    font-size: 22px;
+    font-weight: bold;
+}

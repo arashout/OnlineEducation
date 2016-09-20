@@ -1,0 +1,35 @@
+#quoteBox{
+    border: 5px solid black;
+    overflow:auto;
+    background-color: blanchedalmond;
+}
+.wordwrap { 
+   white-space: pre-wrap;      /* CSS3 */   
+   white-space: -moz-pre-wrap; /* Firefox */    
+   white-space: -pre-wrap;     /* Opera <7 */   
+   white-space: -o-pre-wrap;   /* Opera 7 */    
+   word-wrap: break-word;      /* IE */
+}
+#quoteText{
+    padding: 20px;
+    font-size: 150%;
+    font-weight: bold;
+}
+#quoteAuthor{
+    padding: 10px;
+    font-size: 160%;
+    text-align: center;
+}
+#tweetQuote{
+    position: relative;
+    float: left;
+}
+#newQuoteButton{
+    position: relative;
+    float: right;
+    font-size: 20px;
+}
+.middle{
+    top: 35%;
+    position: absolute;
+}
