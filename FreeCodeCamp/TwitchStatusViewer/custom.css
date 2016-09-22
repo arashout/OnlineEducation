@@ -1,0 +1,44 @@
+#searchBox {
+  border:1px solid #999999;
+  font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+    font-weight: bold;
+    font-size: 20px;
+}
+.streamerName{
+    display: none;
+    font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 1px solid grey;
+}
+.status{
+    display: none;
+    border: 1px dotted pink;
+    font-size: 20px;
+    font-family: serif;
+    font-weight: normal;
+}
+a{
+    display:block;
+    color: black;
+    text-decoration: none;
+}
+a:hover + .status{ 
+    display: block;
+}
+.btn{
+    font-size: 16px;
+    font-weight: bolder;
+}
+.online{
+    background-color: rgba(0,200,0,0.3);
+}
+.offline{
+    background-color: rgba(200,0,0,0.3);
+}
+.accountClosed{
+    background-color: rgba(50,50,50,.3);
+}
+.status{
+    background-color: white;
+}
