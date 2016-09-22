@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Wiki Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+      
+    <!-- load JQuery and UI from Google (need to use UI to animate colors) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
+    <!--Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!--Custom Files-->
+    <script src="custom.js"></script>
+    <link href="custom.css" rel="stylesheet">
+
+  </head>
+  <body>
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12" align="center">
+                  <h1 id="searchHeader">Search Wikipedia</h1>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-10">
+                              <div class="form-group">
+                <input class="form-control" type="text" id="searchBox">
+            </div>
+              </div>
+              <div class="col-md-2">
+                  <button type="button" class="btn btn-primary" id="randButton"><a href="https://en.wikipedia.org/wiki/Special:Random">Random</a></button>
+              </div>
+
+          </div>
+      </div>
+    <div class="container" id="contentContainer">
+        
+      </div>
+    <!-- This is where rows of titles should show up-->
+  </body>
+</html>
