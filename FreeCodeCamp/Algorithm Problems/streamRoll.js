@@ -2,17 +2,17 @@
 function steamrollArray(arr) {
   // I'm a steamroller, baby
   var flatArr = [];
-  for(var i in arr){
-  	flatArr.push(dig(arr[i]));
-  }
+  dig(arr, flatArr);
   return flatArr;
 }
 function dig(arr, appendArr){
 	if(Array.isArray(arr)){
-		return dig(arr[0]);
+		for(var i in arr){
+			dig(arr[i], appendArr);
+		}
 	}
 	else{
-		return arr;
+		return appendArr.push(arr);
 	}
 }
 
