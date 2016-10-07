@@ -1,9 +1,24 @@
 /*Return an English translated sentence of the passed binary string.
 The binary string will be space separated.*/
 function binaryAgent(str) {
-  return str;
+	var arrBinary = str.split(" ");
+	var arrLetters = [];
+	var letter;
+	var decVal;
+	for(var i in arrBinary){
+		decVal = bin2Dec8Bit(arrBinary[i]);
+		arrLetters.push(String.fromCharCode(decVal));
+	}
+	var newStr = arrLetters.join('');
+  return newStr;
 }
-
-binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111");
-binaryAgent("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111") === "Aren't bonfires fun!?";
-binaryAgent("01001001 00100000 01101100 01101111 01110110 01100101 00100000 01000110 01110010 01100101 01100101 01000011 01101111 01100100 01100101 01000011 01100001 01101101 01110000 00100001")  === "I love FreeCodeCamp!" ;
+function bin2Dec8Bit(binaryStr){
+	var decValue = 0;
+	var binaryPower = 0;
+	for(var j = binaryStr.length - 1; j >= 0; j--){
+		decValue += parseInt(binaryStr[j]) * Math.pow(2,binaryPower);
+		binaryPower++;
+	}
+	return decValue;
+}
+console.log(binaryAgent("01001001 00100000 01101100 01101111 01110110 01100101 00100000 01000110 01110010 01100101 01100101 01000011 01101111 01100100 01100101 01000011 01100001 01101101 01110000 00100001"));
