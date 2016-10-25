@@ -163,8 +163,9 @@ class PlaintextMessage(Message):
         Hint: consider using the parent class constructor so less 
         code is repeated
         '''
-        Message.__init__(text, shift)
-        self.encrypting_dict = self.build_shift_dict().copy()
+        Message.__init__(self, text)
+        self.shift = shift
+        self.encrypting_dict = self.build_shift_dict(shift).copy()
         self.message_text_encrypted = self.apply_shift(shift)
 
     def get_shift(self):
@@ -189,7 +190,7 @@ class PlaintextMessage(Message):
         
         Returns: self.message_text_encrypted
         '''
-        return message_text_encrypted
+        return self.message_text_encrypted
 
     def change_shift(self, shift):
         '''
@@ -203,7 +204,8 @@ class PlaintextMessage(Message):
         Returns: nothing
         '''
         self.shift = shift
-
+        self.encrypting_dict = self.build_shift_dict(shift).copy()
+        self.message_text_encrypted = self.apply_shift(shift)
 
 class CiphertextMessage(Message):
     def __init__(self, text):
@@ -216,7 +218,7 @@ class CiphertextMessage(Message):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
+        Message.__init__(self, text)
 
     def decrypt_message(self):
         '''
@@ -234,7 +236,28 @@ class CiphertextMessage(Message):
         Returns: a tuple of the best shift value used to decrypt the message
         and the decrypted message text using that shift value
         '''
-        pass #delete this line and replace with your code here
+
+        #  This dictionary will contain shift amounts as keys and best word scores as values 
+        max_shift = 0
+        max_score = 0
+        for shift in range(1,26):
+            current_decrypt = Message.apply_shift(self, shift)
+            split_words = current_decrypt.split(' ')
+            score = 0
+            for word in split_words:
+                if word in self.get_valid_words():
+                    score += 1
+            if score > max_score:
+                max_score = score
+                max_shift = shift
+
+        return (max_shift, Message.apply_shift(self, max_shift))
+
+def decrypt_story():
+    encodedStory = get_story_string()
+    cipher_obj = CiphertextMessage(encodedStory)
+    decodedStory = cipher_obj.decrypt_message()
+    return decodedStory
 
 #Example test case (PlaintextMessage)
 plaintext = PlaintextMessage('hello', 2)
@@ -245,3 +268,9 @@ print('Actual Output:', plaintext.get_message_text_encrypted())
 ciphertext = CiphertextMessage('jgnnq')
 print('Expected Output:', (24, 'hello'))
 print('Actual Output:', ciphertext.decrypt_message())
+
+#Example test case 
+message = CiphertextMessage('efgfoe uif fbtu xbmm pg uif dbtumf')
+print(message.decrypt_message())
+
+print(decrypt_story())
