@@ -25,7 +25,20 @@ class Edge(object):
         return self.dest
     def __str__(self):
         return self.src.getName() + '->' + self.dest.getName()
-               
+
+class WeightedEdge(Edge):
+    def __init__(self, src, dest, weight):
+        """Assumes src and dest are nodes"""
+        self.src = src
+        self.dest = dest
+        self.weight = weight
+    def getWeight(self):
+        # Your code here
+        return self.weight
+    def __str__(self):
+        # Your code here
+        return self.src.getName() + '->' + self.dest.getName() + ' (' + str(self.getWeight()) + ')'
+
 class Digraph(object):
     """edges is a dict mapping each node to a list of
     its children"""
@@ -64,24 +77,6 @@ class Graph(Digraph):
         Digraph.addEdge(self, edge)
         rev = Edge(edge.getDestination(), edge.getSource())
         Digraph.addEdge(self, rev)
-
-    
-def buildCityGraph(graphType):
-    g = graphType()
-    for name in ('Boston', 'Providence', 'New York', 'Chicago',
-                 'Denver', 'Phoenix', 'Los Angeles'): #Create 7 nodes
-        g.addNode(Node(name))
-    g.addEdge(Edge(g.getNode('Boston'), g.getNode('Providence')))
-    g.addEdge(Edge(g.getNode('Boston'), g.getNode('New York')))
-    g.addEdge(Edge(g.getNode('Providence'), g.getNode('Boston')))
-    g.addEdge(Edge(g.getNode('Providence'), g.getNode('New York')))
-    g.addEdge(Edge(g.getNode('New York'), g.getNode('Chicago')))
-    g.addEdge(Edge(g.getNode('Chicago'), g.getNode('Denver')))
-    g.addEdge(Edge(g.getNode('Denver'), g.getNode('Phoenix')))
-    g.addEdge(Edge(g.getNode('Denver'), g.getNode('New York')))
-    g.addEdge(Edge(g.getNode('Los Angeles'), g.getNode('Boston')))
-    return g
-
 
 def buildPermutationsStudent():
     nodes = []
