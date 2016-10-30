@@ -8,7 +8,6 @@ def general_poly (L):
         power = len(L) - 1
         for co_eff in L:
             result += co_eff * x ** power
-            print(co_eff * x ** power)
             power -= 1
         return result
 
