@@ -235,6 +235,9 @@ class StandardRobot(Robot):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
+        def get_new_direction(direction):
+            return random.randrange(0,360)
+
         current_position = self.getRobotPosition()
         current_direction = self.getRobotDirection()
         while True:
@@ -242,10 +245,8 @@ class StandardRobot(Robot):
             if self.room.isPositionInRoom(new_position):
                 break
             else:
-                if current_direction <= 350:
-                    current_direction += 5
-                else:
-                    current_direction = 0
+                current_direction = get_new_direction(current_direction)
+
         self.room.cleanTileAtPosition(current_position)
         self.setRobotPosition(new_position)
         self.setRobotDirection(current_direction)
