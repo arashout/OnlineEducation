@@ -252,7 +252,7 @@ class StandardRobot(Robot):
         self.setRobotDirection(current_direction)
 
 # Uncomment this line to see your implementation of StandardRobot in action!
-testRobotMovement(StandardRobot, RectangularRoom)
+#testRobotMovement(StandardRobot, RectangularRoom)
 
 
 # === Problem 4
@@ -274,10 +274,43 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     robot_type: class of robot to be instantiated (e.g. StandardRobot or
                 RandomWalkRobot)
     """
-    raise NotImplementedError
+    robots = []
+    list_ticks = []
+    test_passed = False
 
+    #Main loop
+    for j in range(num_trials):
+        test_passed = False
+        current_ticks = 0
+        room = RectangularRoom(width, height)
+        #anim = ps2_visualize.RobotVisualization(num_robots, width, height)
+        #Initiliaze robot list
+        for i in range(num_robots):
+            robots.append(robot_type(room, speed))
+            
+        while True:
+            # This is one time unit, every robot moves once
+            #anim.update(room, robots)
+            for robot in robots:
+                # Coverage test inside loop
+                current_coverage = room.getNumCleanedTiles()/room.getNumTiles()
+                if current_coverage >= min_coverage:
+                    test_passed = True
+                    break
+
+                robot.updatePositionAndClean()
+
+            # Break out of the while loop if the coverage condition is passed
+            if test_passed:
+                list_ticks.append(current_ticks)
+                break
+            else:
+                current_ticks += 1
+        #anim.done()
+
+    return sum(list_ticks)/num_trials
 # Uncomment this line to see how much your simulation takes on average
-##print(runSimulation(1, 1.0, 10, 10, 0.75, 30, StandardRobot))
+print(runSimulation(1, 3.0, 15, 13, 0.98, 1, StandardRobot))
 
 
 # === Problem 5
@@ -293,7 +326,21 @@ class RandomWalkRobot(Robot):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        raise NotImplementedError
+        def get_new_direction(direction):
+            return random.randrange(0,360)
+
+        current_position = self.getRobotPosition()
+        current_direction = self.getRobotDirection()
+        while True:
+            current_direction = get_new_direction(current_direction)
+            new_position = current_position.getNewPosition(current_direction, self.speed)
+            if self.room.isPositionInRoom(new_position):
+                break
+                
+
+        self.room.cleanTileAtPosition(current_position)
+        self.setRobotPosition(new_position)
+        self.setRobotDirection(current_direction)
 
 
 def showPlot1(title, x_label, y_label):
