@@ -11,18 +11,11 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        int[] whitelist = In.readInts(args[0]);
+        int[] whitelist = {1,2,3,4,6,7,8,9};
         Arrays.sort(whitelist);
-        try {
-            System.setIn(new FileInputStream(args[1]));
-        } catch (FileNotFoundException e){
-            StdOut.println("File not found");
-        }
         while (!StdIn.isEmpty()) { // Read key, print if not in whitelist.
             int key = StdIn.readInt();
-            if (BinarySearch.rank(key, whitelist) < 0) {
-                StdOut.println(key);
-            }
+            StdOut.println(BinarySearch.recursiveRank(key, whitelist, 0, whitelist.length, 0));
         }
     }
 }
