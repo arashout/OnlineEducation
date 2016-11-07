@@ -389,7 +389,7 @@ def test():
     posA = Position(1,0)
     roomA.cleanTileAtPosition(posA)
 
-test()
+showPlot1("title", "x", "y")
 
 # === Problem 6
 # NOTE: If you are running the simulation, you will have to close it 
