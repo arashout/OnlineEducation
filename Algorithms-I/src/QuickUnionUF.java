@@ -1,11 +1,11 @@
 /**
  * Created by arash on 2016-11-07.
  */
-public class QuickFindUF {
+public class QuickUnionUF {
     public int[] id;
     public int count;
 
-    public QuickFindUF(int n){
+    public QuickUnionUF(int n){
         count = n;
         id = new int[n];
         for(int i =0;i < n; i++){
@@ -19,13 +19,13 @@ public class QuickFindUF {
         return find(p) == find(q);
     }
     private int find(int p){
-        return id[p];
+        while (p != id[p]) p = id[p];
+        return p;
     }
     public void union(int p, int q){
-        int pId = find(p);
-        int qId = find(q);
-        for(int i = 0;i < count;i++){
-            if(id[i] == qId) id[i] = pId;
-        }
+        int pRoot = find(p);
+        int qRoot = find(q);
+        if (pRoot == qRoot) return; //If they are already the same
+        id[pRoot] = qRoot;
     }
 }
