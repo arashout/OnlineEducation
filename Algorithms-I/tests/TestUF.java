@@ -1,12 +1,11 @@
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-public class TestQuickFindUF {
+public class TestUF {
 
     //test to check appraisal
     @Test
-    public void testTheTest() {
+    public void testQuickFind() {
         QuickFindUF qf = new QuickFindUF(4);
-        assertEquals(4, qf.a);
     }
 }
