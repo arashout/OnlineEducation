@@ -47,11 +47,12 @@ public class TestUF {
     @Test
     public void testUFVariants(){
         //Parameters
-        int n = 483647;
+        int n = 4836470;
         int seed = 0;
         //boolean[] qfResults;
-        boolean[] quResults;
+        //boolean[] quResults;
         boolean[] wquResults;
+        boolean[] wqupcResults;
 
         Stopwatch sw = new Stopwatch();
         double start;
@@ -62,22 +63,28 @@ public class TestUF {
         qfResults = returnUFResults(qf, seed, n); //This will be base-line
         end = sw.elapsedTime();
         StdOut.println("QF took: " + (end - start));
-        */
+
         start = sw.elapsedTime();
         QuickUnionUF qu = new QuickUnionUF(n);
         quResults = returnUFResults(qu, seed, n);
         end = sw.elapsedTime();
         StdOut.println("QU took: " + (end - start));
-
+        */
         start = sw.elapsedTime();
         WeightedQuickUnionUF wqu = new WeightedQuickUnionUF(n);
         wquResults = returnUFResults(wqu, seed, n);
         end = sw.elapsedTime();
         StdOut.println("WQU took: " + (end - start));
 
-        for(int k = 0; k<quResults.length; k++){
+        start = sw.elapsedTime();
+        WQUPathCompressionUF wqupc = new WQUPathCompressionUF(n);
+        wqupcResults = returnUFResults(wqupc, seed, n);
+        end = sw.elapsedTime();
+        StdOut.println("WQUPC took: " + (end - start));
+
+        for(int k = 0; k<wquResults.length; k++){
             //assertTrue(qfResults[k] == quResults[k]);
-            assertTrue(quResults[k] == wquResults[k]);
+            assertTrue(wquResults[k] == wqupcResults[k]);
         }
     }
 
