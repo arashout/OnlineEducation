@@ -1,3 +1,7 @@
+import UF.BaseUF;
+import UF.QuickFindUF;
+import UF.WQUPathCompressionUF;
+import UF.WeightedQuickUnionUF;
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.Stopwatch;
 import org.junit.Test;
@@ -8,7 +12,6 @@ import edu.princeton.cs.algs4.StdOut;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.lang.System;
-import java.sql.Time;
 
 import static org.junit.Assert.assertTrue;
 
@@ -59,13 +62,13 @@ public class TestUF {
         double end;
         /*
         start = sw.elapsedTime();
-        QuickFindUF qf = new QuickFindUF(n);
+        UF.QuickFindUF qf = new UF.QuickFindUF(n);
         qfResults = returnUFResults(qf, seed, n); //This will be base-line
         end = sw.elapsedTime();
         StdOut.println("QF took: " + (end - start));
 
         start = sw.elapsedTime();
-        QuickUnionUF qu = new QuickUnionUF(n);
+        UF.QuickUnionUF qu = new UF.QuickUnionUF(n);
         quResults = returnUFResults(qu, seed, n);
         end = sw.elapsedTime();
         StdOut.println("QU took: " + (end - start));

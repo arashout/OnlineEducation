@@ -1,7 +1,11 @@
+package UF;
+
+import UF.BaseUF;
+
 /**
  * Created by arash on 2016-11-10.
  */
-public class WQUPathCompressionUF extends BaseUF{
+public class WQUPathCompressionUF extends BaseUF {
     private int[] id;
     private int[] sz;
     private int count;

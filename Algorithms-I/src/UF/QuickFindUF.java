@@ -1,7 +1,9 @@
+package UF;
+
 /**
  * Created by arash on 2016-11-07.
  */
-public class QuickFindUF extends BaseUF{
+public class QuickFindUF extends BaseUF {
     private int[] id;
     private int count;
 

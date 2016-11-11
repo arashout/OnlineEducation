@@ -1,11 +1,6 @@
-import edu.princeton.cs.algs4.StdIn;
+import UF.BaseUF;
+import UF.QuickFindUF;
 import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.In;
-import java.io.FileInputStream;
-
-import java.io.FileNotFoundException;
-import java.lang.System;
-import java.util.Arrays;
 
 public class Main {
     public static void passChildObject(BaseUF bUF){

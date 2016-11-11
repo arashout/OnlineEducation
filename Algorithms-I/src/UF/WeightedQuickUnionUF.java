@@ -1,7 +1,11 @@
+package UF;
+
+import UF.BaseUF;
+
 /**
  * Created by arash_000 on 2016-11-10.
  */
-public class WeightedQuickUnionUF extends BaseUF{
+public class WeightedQuickUnionUF extends BaseUF {
     private int[] id;
     private int[] sz;
     private int count;
