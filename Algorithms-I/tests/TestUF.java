@@ -1,4 +1,5 @@
 import edu.princeton.cs.algs4.StdRandom;
+import edu.princeton.cs.algs4.Stopwatch;
 import org.junit.Test;
 
 import edu.princeton.cs.algs4.StdIn;
@@ -46,53 +47,58 @@ public class TestUF {
     @Test
     public void testUFVariants(){
         //Parameters
-        int start = 200;
-        int end = 500;
+        int n = 483647;
+        int seed = 0;
+        //boolean[] qfResults;
+        boolean[] quResults;
+        boolean[] wquResults;
 
-        //Pick a random size from 'start' to 'end'
-        int n = StdRandom.uniform(start,end);
-        int numUnions = StdRandom.uniform(start,end);
-        int numConnects = StdRandom.uniform(numUnions, end);
-
-        //Initialize arrays that will contain numbers to union and to test connections
-        int[] pArr = new int[numUnions];
-        int[] qArr = new int[numUnions];
-        int[] aArr = new int[numConnects];
-        int[] bArr = new int[numConnects];
-        for(int i=0;i<numUnions;i++){
-            pArr[i] = StdRandom.uniform(0,n);
-            qArr[i] = StdRandom.uniform(0,n);
-        }
-        for(int i=0;i<numConnects;i++){
-            aArr[i] = StdRandom.uniform(0,n);
-            bArr[i] = StdRandom.uniform(0,n);
-        }
-        //Build QuickFind Structure
+        Stopwatch sw = new Stopwatch();
+        double start;
+        double end;
+        /*
+        start = sw.elapsedTime();
         QuickFindUF qf = new QuickFindUF(n);
-        //Do unions
-        for(int i=0;i<numUnions;i++){
-            qf.union(pArr[i],qArr[i]);
-        }
-        //Using connected results from Quick Find we will check other UF variants
-        boolean[] checkArr = new boolean[numConnects];
-        for(int i=0;i<numConnects;i++){
-            checkArr[i] = qf.connected(aArr[i],bArr[i]);
-        }
-
-        //Build QuickUnion Structure
+        qfResults = returnUFResults(qf, seed, n); //This will be base-line
+        end = sw.elapsedTime();
+        StdOut.println("QF took: " + (end - start));
+        */
+        start = sw.elapsedTime();
         QuickUnionUF qu = new QuickUnionUF(n);
-        //Do unions
-        for(int i=0;i<numUnions;i++){
-            qu.union(pArr[i],qArr[i]);
-        }
-        //Check results of quickUnion
-        for(int i=0;i<numConnects;i++) {
-            StdOut.println(aArr[i] + " <-> " + bArr[i] + "  " + checkArr[i]);
-            assertTrue(checkArr[i] == qu.connected(aArr[i], bArr[i]));
-        }
+        quResults = returnUFResults(qu, seed, n);
+        end = sw.elapsedTime();
+        StdOut.println("QU took: " + (end - start));
 
+        start = sw.elapsedTime();
+        WeightedQuickUnionUF wqu = new WeightedQuickUnionUF(n);
+        wquResults = returnUFResults(wqu, seed, n);
+        end = sw.elapsedTime();
+        StdOut.println("WQU took: " + (end - start));
+
+        for(int k = 0; k<quResults.length; k++){
+            //assertTrue(qfResults[k] == quResults[k]);
+            assertTrue(quResults[k] == wquResults[k]);
+        }
     }
-    private void executeUFOperations(){
 
+    private boolean[] returnUFResults(BaseUF buf, int s, int size){
+        StdRandom.setSeed(s);
+        int nUnions = StdRandom.uniform(0, size);
+        int nConnects = StdRandom.uniform(size);
+
+        int p,q;
+        for(int i=0;i<nUnions;i++){
+            p = StdRandom.uniform(0,size);
+            q = StdRandom.uniform(0,size);
+            buf.union(p,q);
+        }
+        boolean[] results = new boolean[nConnects];
+        int a,b;
+        for(int j=0;j<nConnects;j++){
+            a = StdRandom.uniform(0,size);
+            b = StdRandom.uniform(0,size);
+            results[j] = buf.connected(a,b);
+        }
+        return results;
     }
 }

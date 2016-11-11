@@ -1,7 +1,7 @@
 /**
  * Created by arash_000 on 2016-11-10.
  */
-public class WeightedQuickUnionUF {
+public class WeightedQuickUnionUF extends BaseUF{
     public int[] id;
     public int[] sz;
     public int count;
@@ -28,9 +28,17 @@ public class WeightedQuickUnionUF {
         return p;
     }
     public void union(int p, int q){
-        int pRoot = find(p);
-        int qRoot = find(q);
-        if (pRoot == qRoot) return; //If they are already the same
-        id[pRoot] = qRoot;
+        int i = find(p);
+        int j = find(q);
+        if (i == j) return; //If they are already the same
+        if(sz[i] < sz[j]){
+            id[i] = j;
+            sz[j] += sz[i];
+        }
+        else{
+            id[j] = i;
+            sz[i] += sz[j];
+        }
+        count--;
     }
 }

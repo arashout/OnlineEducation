@@ -1,7 +1,7 @@
 /**
  * Created by arash on 2016-11-07.
  */
-public class QuickUnionUF {
+public class QuickUnionUF extends BaseUF {
     public int[] id;
     public int count;
 
@@ -27,5 +27,6 @@ public class QuickUnionUF {
         int qRoot = find(q);
         if (pRoot == qRoot) return; //If they are already the same
         id[pRoot] = qRoot;
+        count--;
     }
 }

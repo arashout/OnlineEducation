@@ -1,7 +1,7 @@
 /**
  * Created by arash on 2016-11-07.
  */
-public class QuickFindUF {
+public class QuickFindUF extends BaseUF{
     public int[] id;
     public int count;
 
