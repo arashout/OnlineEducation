@@ -2,10 +2,10 @@
  * Created by arash on 2016-11-10.
  */
 public class BaseUF {
-        public int[] id;
-        public int count;
+        private int[] id;
+        private int count;
         public int count(){
-            return count;
+            return 0;
         }
         public boolean connected(int p, int q){return false;}
         private int find(int p){return 0;}

@@ -2,8 +2,8 @@
  * Created by arash on 2016-11-07.
  */
 public class QuickFindUF extends BaseUF{
-    public int[] id;
-    public int count;
+    private int[] id;
+    private int count;
 
     public QuickFindUF(int n){
         count = n;
