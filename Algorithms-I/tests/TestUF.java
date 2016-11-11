@@ -7,6 +7,7 @@ import edu.princeton.cs.algs4.StdOut;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.lang.System;
+import java.sql.Time;
 
 import static org.junit.Assert.assertTrue;
 
@@ -89,6 +90,9 @@ public class TestUF {
             StdOut.println(aArr[i] + " <-> " + bArr[i] + "  " + checkArr[i]);
             assertTrue(checkArr[i] == qu.connected(aArr[i], bArr[i]));
         }
+
+    }
+    private void executeUFOperations(){
 
     }
 }
