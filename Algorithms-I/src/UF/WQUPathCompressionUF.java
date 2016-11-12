@@ -27,6 +27,15 @@ public class WQUPathCompressionUF extends BaseUF {
     public boolean connected(int p, int q){
         return find(p) == find(q);
     }
+    public int depth(int p){
+        int rank = 1;
+        int root = p;
+        while (root != id[root]){
+            root = id[root];
+            rank++;
+        }
+        return rank;
+    }
     private int find(int p){
         int root = p;
         while (root != id[root]){
