@@ -66,7 +66,7 @@ public class PercolationVisualizer {
     }
 
     public static void main(String[] args) {
-        String filename = new String("C:\\Users\\arash\\Github\\OnlineEducation\\Algorithms-I\\src\\greeting57.txt");
+        String filename = new String("C:\\Users\\arash\\Downloads\\percolation\\input20.txt");
         File file = new File(filename);
         try {
             Scanner scanner = new Scanner(file);

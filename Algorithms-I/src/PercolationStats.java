@@ -2,8 +2,6 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
-import static java.lang.Math.sqrt;
-
 /**
  * Created by arash on 2016-11-11.
  */
@@ -32,24 +30,24 @@ public class PercolationStats {
         Percolation per = new Percolation(n);
         int siteRow;
         int siteCol;
-        double count_open = 0.0;
+        double countOpen = 0.0;
         while (!per.percolates()) {
-            //Coordinates of site to test
+            // Coordinates of site to test
             siteRow = StdRandom.uniform(1, n + 1);
             siteCol = StdRandom.uniform(1, n + 1);
             if (!per.isOpen(siteRow, siteCol)) {
                 per.open(siteRow, siteCol);
-                count_open++;
+                countOpen++;
             }
         }
-        return count_open / (n * n);
+        return countOpen / (n * n);
     }
 
     private double confidence() {
-        double zCoeff = 1.96; //For 95%
+        double zCoeff = 1.96; // For 95%
         double std = stddev();
         int sampleSize = arrPerc.length;
-        return zCoeff * std / (sqrt(sampleSize));
+        return zCoeff * std / (Math.sqrt(sampleSize));
     }
 
     public double mean() {

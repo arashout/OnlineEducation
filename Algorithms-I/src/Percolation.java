@@ -7,9 +7,12 @@ public class Percolation {
     private Site[][] sites;
     private Site virtualTop, virtualBottom;
     private WeightedQuickUnionUF uf;
+    private WeightedQuickUnionUF uf2;
 
     public Percolation(int n) {
+        if (n <= 0) throw new IllegalArgumentException("Size needs to be natural number");
         uf = new WeightedQuickUnionUF(n * n + 2);
+        uf2 = new WeightedQuickUnionUF(n * n + 1);
         sites = new Site[n][n];
 
         virtualTop = new Site(n * n);
@@ -39,7 +42,7 @@ public class Percolation {
 
     public boolean isFull(int row, int col) {
         validate(row, col);
-        return uf.connected(virtualTop.id, sites[row - 1][col - 1].id);
+        return uf2.connected(sites[row - 1][col - 1].id, virtualTop.id);
     }
 
     public boolean percolates() {
@@ -49,23 +52,39 @@ public class Percolation {
     private void unionAdjacents(int row, int col) {
         row = row - 1;
         col = col - 1;
-        //Top
+        Site cur = sites[row][col];
+        // Top
         if (row != 0 && sites[row - 1][col].open) {
-            uf.union(sites[row][col].id, sites[row - 1][col].id);
+            Site top = sites[row - 1][col];
+            uf.union(cur.id, top.id);
+            uf2.union(cur.id, top.id);
         }
-        if (row == 0) uf.union(sites[row][col].id, virtualTop.id);
-        //Bottom
+        // Connect to virtual top
+        if (row == 0) {
+            uf.union(cur.id, virtualTop.id);
+            uf2.union(cur.id, virtualTop.id);
+        }
+        // Bottom
         if (row < (sites.length - 1) && sites[row + 1][col].open) {
-            uf.union(sites[row][col].id, sites[row + 1][col].id);
+            Site bottom = sites[row + 1][col];
+            uf.union(cur.id, bottom.id);
+            uf2.union(cur.id, bottom.id);
         }
-        if (row == sites.length - 1) uf.union(sites[row][col].id, virtualBottom.id);
-        //Right
+        // Connect to virtual bottom
+        if (row == sites.length - 1) {
+            uf.union(cur.id, virtualBottom.id);
+        }
+        // Right
         if (col < sites.length - 1 && sites[row][col + 1].open) {
-            uf.union(sites[row][col].id, sites[row][col + 1].id);
+            Site right = sites[row][col + 1];
+            uf.union(cur.id, right.id);
+            uf2.union(cur.id, right.id);
         }
-        //Left
+        // Left
         if (col != 0 && sites[row][col - 1].open) {
-            uf.union(sites[row][col].id, sites[row][col - 1].id);
+            Site left = sites[row][col - 1];
+            uf.union(cur.id, left.id);
+            uf2.union(cur.id, left.id);
         }
     }
 
@@ -75,10 +94,10 @@ public class Percolation {
     }
 
     private class Site {
-        public boolean open;
-        public int id;
+        private boolean open;
+        private int id;
 
-        public Site(int num) {
+        Site(int num) {
             id = num;
             open = false;
         }
