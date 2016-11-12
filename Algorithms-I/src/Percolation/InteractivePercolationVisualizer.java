@@ -1,7 +1,7 @@
 /******************************************************************************
- *  Compilation:  javac InteractivePercolationVisualizer.java
- *  Execution:    java InteractivePercolationVisualizer n
- *  Dependencies: PercolationVisualizer.java Percolation.java
+ *  Compilation:  javac Percolation.InteractivePercolationVisualizer.java
+ *  Execution:    java Percolation.InteractivePercolationVisualizer n
+ *  Dependencies: Percolation.PercolationVisualizer.java Percolation.Percolation.java
  *                StdDraw.java StdOut.java
  *
  *  This program takes the grid size n as a command-line argument.
@@ -10,7 +10,7 @@
  *  open sites (that aren't full) in white, and blocked sites in black.
  *
  ******************************************************************************/
-
+package Percolation;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 
