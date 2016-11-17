@@ -21,6 +21,7 @@ public class Stack<Item> {
         stack.push(4);
         stack.push(3);
         stack.push(3);
+        stack.stringRep();
     }
 
     public void push(Item item) {
