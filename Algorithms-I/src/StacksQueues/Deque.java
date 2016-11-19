@@ -15,14 +15,13 @@ public class Deque<Item> implements Iterable<Item> {
     private static class Node<Item> {
         private Item item;
         private Node<Item> next;
+        private Node<Item> prev;
     }
 
     /**
      * Initializes an empty queue.
      */
     public Deque() {
-        first = null;
-        last = null;
         n = 0;
     }
 
@@ -32,7 +31,7 @@ public class Deque<Item> implements Iterable<Item> {
      * @return {@code true} if this queue is empty; {@code false} otherwise
      */
     public boolean isEmpty() {
-        return first == null;
+        return n == 0;
     }
 
     /**
@@ -45,28 +44,42 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     /**
-     * Returns the item least recently added to this queue.
+     * Adds the item to start of queue
      *
-     * @return the item least recently added to this queue
-     * @throws NoSuchElementException if this queue is empty
+     * @param item the item to add
      */
-    public Item peek() {
-        if (isEmpty()) throw new NoSuchElementException("Deque underflow");
-        return first.item;
+    public void addFirst(Item item) {
+        if(isEmpty()){
+            first = new Node<Item>();
+            first.item = item;
+            last = first;
+        }
+        else{
+            Node<Item> oldFirst = first;
+            first = new Node<Item>();
+            first.item = item;
+            first.prev = null;
+            first.next = oldFirst;
+            oldFirst.prev = first;
+        }
+        n++;
     }
-
     /**
      * Adds the item to this queue.
      *
      * @param item the item to add
      */
     public void addLast(Item item) {
+        if(isEmpty()) {
+            addFirst(item);
+            return;
+        }
         Node<Item> oldlast = last;
         last = new Node<Item>();
         last.item = item;
+        last.prev = oldlast;
         last.next = null;
-        if (isEmpty()) first = last;
-        else oldlast.next = last;
+        oldlast.next = last;
         n++;
     }
 
@@ -79,9 +92,15 @@ public class Deque<Item> implements Iterable<Item> {
     public Item removeFirst() {
         if (isEmpty()) throw new NoSuchElementException("Deque underflow");
         Item item = first.item;
-        first = first.next;
+        if(size() > 1){
+            first = first.next;
+            first.prev = null;
+        }
+        else{
+            first = null;
+            last = first;
+        }
         n--;
-        if (isEmpty()) last = null;   // to avoid loitering
         return item;
     }
     /**
@@ -92,7 +111,16 @@ public class Deque<Item> implements Iterable<Item> {
      */
     public Item removeLast(){
         if (isEmpty()) throw new NoSuchElementException("Deque underflow");
-
+        Item item = last.item;
+        if(size() == 1){
+            return removeFirst();
+        }
+        else{
+            last = last.prev;
+            last.next = null;
+        }
+        n--;
+        return item;
     }
     /**
      * Returns a string representation of this queue.
@@ -148,14 +176,14 @@ public class Deque<Item> implements Iterable<Item> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        Deque<String> queue = new Deque<String>();
-        while (!StdIn.isEmpty()) {
-            String item = StdIn.readString();
-            if (!item.equals("-"))
-                queue.addLast(item);
-            else if (!queue.isEmpty())
-                StdOut.print(queue.removeFirst() + " ");
-        }
-        StdOut.println("(" + queue.size() + " left on queue)");
+        Deque<Integer> queue = new Deque<Integer>();
+        queue.addFirst(3);
+        queue.addFirst(1);
+        queue.addLast(4);
+        queue.removeFirst();
+        queue.removeLast();
+        queue.removeLast();
+        queue.addLast(3);
+
     }
 }
