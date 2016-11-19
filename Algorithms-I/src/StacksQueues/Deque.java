@@ -176,14 +176,5 @@ public class Deque<Item> implements Iterable<Item> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        Deque<Integer> queue = new Deque<Integer>();
-        queue.addFirst(3);
-        queue.addFirst(1);
-        queue.addLast(4);
-        queue.removeFirst();
-        queue.removeLast();
-        queue.removeLast();
-        queue.addLast(3);
-
     }
 }
