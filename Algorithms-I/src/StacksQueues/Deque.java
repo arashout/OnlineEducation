@@ -1,8 +1,5 @@
 package StacksQueues;
 
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
-
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -11,18 +8,19 @@ public class Deque<Item> implements Iterable<Item> {
     private Node<Item> last;     // end of queue
     private int n;               // number of elements on queue
 
-    // helper linked list class
-    private static class Node<Item> {
-        private Item item;
-        private Node<Item> next;
-        private Node<Item> prev;
-    }
-
     /**
      * Initializes an empty queue.
      */
     public Deque() {
         n = 0;
+    }
+
+    /**
+     * Unit tests the {@code StacksQueues.Deque} data type.
+     *
+     * @param args the command-line arguments
+     */
+    public static void main(String[] args) {
     }
 
     /**
@@ -49,12 +47,12 @@ public class Deque<Item> implements Iterable<Item> {
      * @param item the item to add
      */
     public void addFirst(Item item) {
-        if(isEmpty()){
+        if (item == null) throw new java.lang.NullPointerException();
+        if (isEmpty()) {
             first = new Node<Item>();
             first.item = item;
             last = first;
-        }
-        else{
+        } else {
             Node<Item> oldFirst = first;
             first = new Node<Item>();
             first.item = item;
@@ -64,16 +62,18 @@ public class Deque<Item> implements Iterable<Item> {
         }
         n++;
     }
+
     /**
      * Adds the item to this queue.
      *
      * @param item the item to add
      */
     public void addLast(Item item) {
-        if(isEmpty()) {
+        if (isEmpty()) {
             addFirst(item);
             return;
         }
+        if (item == null) throw new java.lang.NullPointerException();
         Node<Item> oldlast = last;
         last = new Node<Item>();
         last.item = item;
@@ -90,43 +90,44 @@ public class Deque<Item> implements Iterable<Item> {
      * @throws NoSuchElementException if this queue is empty
      */
     public Item removeFirst() {
-        if (isEmpty()) throw new NoSuchElementException("Deque underflow");
+        if (isEmpty()) throw new NoSuchElementException("StacksQueues.Deque underflow");
         Item item = first.item;
-        if(size() > 1){
+        if (size() > 1) {
             first = first.next;
             first.prev = null;
-        }
-        else{
+        } else {
             first = null;
             last = first;
         }
         n--;
         return item;
     }
+
     /**
      * Removes and returns element at the end.
      *
      * @return at the end
      * @throws NoSuchElementException if this queue is empty
      */
-    public Item removeLast(){
-        if (isEmpty()) throw new NoSuchElementException("Deque underflow");
+    public Item removeLast() {
+        if (isEmpty()) throw new NoSuchElementException("StacksQueues.Deque underflow");
         Item item = last.item;
-        if(size() == 1){
+        if (size() == 1) {
             return removeFirst();
-        }
-        else{
+        } else {
             last = last.prev;
             last.next = null;
         }
         n--;
         return item;
     }
+
     /**
      * Returns a string representation of this queue.
      *
      * @return the sequence of items in FIFO order, separated by spaces
      */
+    /*
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (Item item : this) {
@@ -135,7 +136,7 @@ public class Deque<Item> implements Iterable<Item> {
         }
         return s.toString();
     }
-
+    */
     /**
      * Returns an iterator that iterates over the items in this queue in FIFO order.
      *
@@ -143,6 +144,13 @@ public class Deque<Item> implements Iterable<Item> {
      */
     public Iterator<Item> iterator() {
         return new ListIterator<Item>(first);
+    }
+
+    // helper linked list class
+    private static class Node<Item> {
+        private Item item;
+        private Node<Item> next;
+        private Node<Item> prev;
     }
 
     // an iterator, doesn't implement remove() since it's optional
@@ -167,14 +175,5 @@ public class Deque<Item> implements Iterable<Item> {
             current = current.next;
             return item;
         }
-    }
-
-
-    /**
-     * Unit tests the {@code Deque} data type.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
     }
 }

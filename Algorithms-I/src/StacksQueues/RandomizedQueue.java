@@ -1,10 +1,8 @@
 package StacksQueues;
 
-import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 import java.util.Iterator;
-import java.util.Scanner;
 
 /**
  * Created by arash on 2016-11-16.
@@ -22,7 +20,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     public static void main(String[] args) {
-        RandomizedQueue<Integer> q = new RandomizedQueue<Integer>();
+        /*
+        StacksQueues.RandomizedQueue<Integer> q = new StacksQueues.RandomizedQueue<Integer>();
 
         Scanner input = new Scanner(System.in);
         int n;
@@ -50,6 +49,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
                 break;
             }
         }
+        */
     }
 
     public boolean isEmpty() {
@@ -66,7 +66,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         // add the item
         if (item == null) throw new java.lang.NullPointerException();
         if (N + 1 > capacity) {//If the size is bigger than the capacity
-            queue = resize(queue, capacity*2);
+            queue = resize(queue, capacity * 2);
             capacity = queue.length;
         }
         queue[N] = item;
@@ -86,17 +86,18 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         queue[i] = queue[N];
         queue[N] = null;
         if (capacity / 4 > N) {
-            queue = resize(queue, capacity/2);
+            queue = resize(queue, capacity / 2);
             capacity = queue.length;
         }
         return ret;
     }
-    private Item[] resize(Item[] arr,  int newCapacity) {
+
+    private Item[] resize(Item[] arr, int newCapacity) {
         Item[] newArr = (Item[]) new Object[newCapacity];
         int index = 0;
         // Expand or shrink array
         int terminator;
-        if(newCapacity > arr.length) terminator = arr.length;
+        if (newCapacity > arr.length) terminator = arr.length;
         else terminator = newCapacity;
         for (int i = 0; i < terminator; i++) {
             newArr[index] = arr[i];
@@ -116,6 +117,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
      *
      * @return the sequence of items in FIFO order, separated by spaces
      */
+    /*
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (Item item : this) {
@@ -124,28 +126,36 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
         return s.toString();
     }
+    */
 
     public Iterator<Item> iterator() {
         // return an iterator over items in order from front to end
         return new ListIterator();
     }
+
     private class ListIterator implements Iterator<Item> {
         private int current = 0;
+        private boolean shuffled = false;
         private int[] shuffledIndexes = new int[N];
 
-        // Since remove is not supported then we only need to shuffle once
-        // In hasNext
         public boolean hasNext() {
-            if (current == 0) {
+            if (!shuffled) {
                 for (int i = 0; i < N; i++)
                     shuffledIndexes[i] = i;
                 StdRandom.shuffle(shuffledIndexes);
+                shuffled = true;
             }
             return current < N;
         }
 
         public Item next() {
             if (current >= N || size() == 0) throw new java.util.NoSuchElementException();
+            if (!shuffled) {
+                for (int i = 0; i < N; i++)
+                    shuffledIndexes[i] = i;
+                StdRandom.shuffle(shuffledIndexes);
+                shuffled = true;
+            }
             return queue[shuffledIndexes[current++]];
         }
 
