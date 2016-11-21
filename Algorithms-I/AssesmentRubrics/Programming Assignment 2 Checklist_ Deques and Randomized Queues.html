@@ -42,8 +42,8 @@ We also require you to use <tt>StdIn</tt> (instead of
 because we will intercept the calls to <tt>StdIn</tt> in our testing.
 
 </p><p><b>
-Can I add extra public methods to the <tt>Deque</tt> or
-<tt>RandomizedQueue</tt> APIs?
+Can I add extra public methods to the <tt>StacksQueues.Deque</tt> or
+<tt>StacksQueues.RandomizedQueue</tt> APIs?
 Can I use different names for the methods?</b>
 No, you must implement the API exactly as specified.
 The only exception is the <tt>main()</tt> method, which you should use for
@@ -151,7 +151,7 @@ variables should be private.)
 </p><p><b>Can a nested class have a constructor?</b>
 Yes.
 
-</p><p><b>What assumptions can I make about the input to <tt>Subset</tt>?</b>
+</p><p><b>What assumptions can I make about the input to <tt>StacksQueues.Subset</tt>?</b>
 Standard input can contain any sequence of strings.
 You may assume that there is one integer command-line argument <em>k</em>
 and it is between 0 and the number of strings on standard input.
@@ -177,14 +177,14 @@ types that you will be implementing.
 </p><ol>
 
 <p></p><li><b>
-Make sure you understand the performance requirements for both <tt>Deque</tt> and <tt>RandomizedQueue</tt>.</b> 
+Make sure you understand the performance requirements for both <tt>StacksQueues.Deque</tt> and <tt>StacksQueues.RandomizedQueue</tt>.</b>
 <!--
-Your Deque should use space proportional to the number of items <i>currently</i> in the deque, and each 
-operation must complete in <i>constant worst-case time</i>. Your Deque iterator must support each iteration 
+Your StacksQueues.Deque should use space proportional to the number of items <i>currently</i> in the deque, and each
+operation must complete in <i>constant worst-case time</i>. Your StacksQueues.Deque iterator must support each iteration
 operation (including construction) in <i>constant worst-case time</i>, and use a <i>constant</i> amount of 
 extra space per iterator. Your RandomizeQueue should use space proportional to the number of items 
 <i>currently</i> in the queue, and each operation should complete in <i>constant <b>amortized</b> time</i>. 
-Your RandomizedQueue iterator implementation must support each iteration operation (<b>excluding</b> 
+Your StacksQueues.RandomizedQueue iterator implementation must support each iteration operation (<b>excluding</b>
 construction) in <i>constant worst-case time</i>, and use a <i>linear</i> amount of extra space per iterator.-->
 They are summarized in the table below.
 <em>Every detail in these performance requirements is important.
@@ -196,7 +196,7 @@ Do not proceed until you understand them.</em>
     <!-- Results table headers -->
     <tr>
       <th></th>
-      <th>Deque</th>
+      <th>StacksQueues.Deque</th>
       <th>Randomized Queue</th>
     </tr>
     <tr>
@@ -231,7 +231,7 @@ Do not proceed until you understand them.</em>
 <p></p></li><li><b>Decide whether you want to use an array, linked list, or your own class.</b>
 This choice should be made based on the performance requirements discussed above.
 You may make different choices for 
-<tt>Deque</tt> and <tt>RandomizedQueue</tt>.
+<tt>StacksQueues.Deque</tt> and <tt>StacksQueues.RandomizedQueue</tt>.
 You might start by considering why a resizing array does not support 
 <i>constant worst-case</i> time operations in a stack.
 
@@ -250,7 +250,7 @@ a linked list where each node has two links, which is useful for being able to g
 <p></p></li><li>
 <b>We strongly recommend that you develop <a href="http://en.wikipedia.org/wiki/Unit_testing">unit tests</a> 
 for your code as soon as you've written enough methods to allow for testing.</b>
-As an example for <tt>Deque</tt>, you 
+As an example for <tt>StacksQueues.Deque</tt>, you
 know that if you call <tt>addFirst()</tt> with the numbers 1 through n in ascending order, then call 
 <tt>removeLast()</tt> n times, you should see the numbers 1 through n in ascending order. As soon as you have 
 those two methods written, you can write a unit test for these methods. Arguably even better are randomized 
@@ -271,8 +271,8 @@ your iterator.
 </p><ol>
 <p></p><li>
 <b>It is very important that you carefully plan your implementation before you begin.</b>
-In particular, for each data structure that you're implementing (<tt>RandomizedQueue</tt> and 
-<tt>Deque</tt>), you must decide whether to use a linked list, an array, or something else.
+In particular, for each data structure that you're implementing (<tt>StacksQueues.RandomizedQueue</tt> and
+<tt>StacksQueues.Deque</tt>), you must decide whether to use a linked list, an array, or something else.
 If you make the wrong choice, you will not achieve the performance requirements and
 you will have to abandon your code and start over.
 

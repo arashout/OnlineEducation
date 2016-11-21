@@ -22,11 +22,11 @@ A <em>double-ended queue</em> or <em>deque</em> (pronounced "deck")
 is a generalization of a 
 stack and a queue that supports adding and removing items 
 from either the front or the back of the data structure.
-Create a generic data type <tt>Deque</tt> that implements the following API:
+Create a generic data type <tt>StacksQueues.Deque</tt> that implements the following API:
 
 </p><blockquote>
-<pre><b>public class Deque&lt;Item&gt; implements Iterable&lt;Item&gt; {</b>
-<b>   public Deque()                           </b><font color="gray">// construct an empty deque</font>
+<pre><b>public class StacksQueues.Deque&lt;Item&gt; implements Iterable&lt;Item&gt; {</b>
+<b>   public StacksQueues.Deque()                           </b><font color="gray">// construct an empty deque</font>
 <b>   public boolean isEmpty()                 </b><font color="gray">// is the deque empty?</font>
 <b>   public int size()                        </b><font color="gray">// return the number of items on the deque</font>
 <b>   public void addFirst(Item item)          </b><font color="gray">// add the item to the front</font>
@@ -65,12 +65,12 @@ each operation (including construction) in <em>constant worst-case time</em>.
 A <em>randomized queue</em> is similar to a stack or queue, except that
 the item removed is chosen uniformly at random from items in
 the data structure.
-Create a generic data type <tt>RandomizedQueue</tt>
+Create a generic data type <tt>StacksQueues.RandomizedQueue</tt>
 that implements the following API:
 
 </p><blockquote>
-<pre><b>public class RandomizedQueue&lt;Item&gt; implements Iterable&lt;Item&gt; {</b>
-<b>   public RandomizedQueue()                 </b><font color="gray">// construct an empty randomized queue</font>
+<pre><b>public class StacksQueues.RandomizedQueue&lt;Item&gt; implements Iterable&lt;Item&gt; {</b>
+<b>   public StacksQueues.RandomizedQueue()                 </b><font color="gray">// construct an empty randomized queue</font>
 <b>   public boolean isEmpty()                 </b><font color="gray">// is the queue empty?</font>
 <b>   public int size()                        </b><font color="gray">// return the number of items on the queue</font>
 <b>   public void enqueue(Item item)           </b><font color="gray">// add the item</font>
@@ -115,9 +115,9 @@ linear amount of extra memory per iterator.
 
 
 </p><p>
-<b>Subset client.</b>
+<b>StacksQueues.Subset client.</b>
 
-Write a client program <tt>Subset.java</tt> that takes a
+Write a client program <tt>StacksQueues.Subset.java</tt> that takes a
 command-line integer <em>k</em>; reads in a sequence of
 <em>N</em> strings from standard input using <tt>StdIn.readString()</tt>;
 and prints out exactly <em>k</em> of them, uniformly at random.
@@ -126,12 +126,12 @@ You may assume that 0 ≤ <em>k</em> ≤ <em>n</em>, where <em>n</em>
 is  the number of string on standard input.
 
 </p><blockquote>
-<pre>% <b>echo A B C D E F G H I | java Subset 3</b>       % <b>echo AA BB BB BB BB BB CC CC | java Subset 8</b>
+<pre>% <b>echo A B C D E F G H I | java StacksQueues.Subset 3</b>       % <b>echo AA BB BB BB BB BB CC CC | java StacksQueues.Subset 8</b>
 C                                              BB
 G                                              AA
 A                                              BB
                                                CC
-% <b>echo A B C D E F G H I | java Subset 3</b>       BB
+% <b>echo A B C D E F G H I | java StacksQueues.Subset 3</b>       BB
 E                                              BB
 F                                              CC
 G                                              BB
@@ -139,16 +139,16 @@ G                                              BB
 </blockquote>
 
 
-The running time of <tt>Subset</tt> must be linear in the size of the input.
+The running time of <tt>StacksQueues.Subset</tt> must be linear in the size of the input.
 You may use only a constant amount of memory plus either
-one <tt>Deque</tt> or <tt>RandomizedQueue</tt> object of maximum size at most <em>n</em>,
+one <tt>StacksQueues.Deque</tt> or <tt>StacksQueues.RandomizedQueue</tt> object of maximum size at most <em>n</em>,
 where <em>n</em> is the number of strings on standard input.
-(For an extra challenge, use only one <tt>Deque</tt> or <tt>RandomizedQueue</tt> object of maximum
+(For an extra challenge, use only one <tt>StacksQueues.Deque</tt> or <tt>StacksQueues.RandomizedQueue</tt> object of maximum
 size at most <em>k</em>.)
 It should have the following API.
 
 <blockquote>
-<pre><b>public class Subset {</b>
+<pre><b>public class StacksQueues.Subset {</b>
 <b>   public static void main(String[] args)</b>
 <b>}</b>
 </pre>
@@ -157,7 +157,7 @@ It should have the following API.
 
 <p>
 <b>Deliverables.</b>
-Submit only <tt>Deque.java</tt>, <tt>RandomizedQueue.java</tt>, and <tt>Subset.java</tt>.
+Submit only <tt>StacksQueues.Deque.java</tt>, <tt>StacksQueues.RandomizedQueue.java</tt>, and <tt>StacksQueues.Subset.java</tt>.
 We will supply <tt>algs4.jar</tt>.
 Your submission not call library functions except those in
 <a href="http://algs4.cs.princeton.edu/code/javadoc/edu/princeton/cs/algs4/StdIn.html"><tt>StdIn</tt></a>,
