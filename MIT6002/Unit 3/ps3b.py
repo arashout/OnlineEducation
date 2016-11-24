@@ -167,8 +167,8 @@ class Patient(object):
 
         newViruses = []
         for v in self.viruses:
-            childVirus = v.reproduce(currentPopDensity)
             try:
+                childVirus = v.reproduce(currentPopDensity)
                 newViruses.append(childVirus)
             except NoChildException as e:
                 pass
