@@ -1,5 +1,4 @@
 # Problem Set 3: Simulating the Spread of Disease and Virus Population Dynamics 
-
 import random
 import pylab
 
@@ -22,6 +21,7 @@ End helper code
 #
 # PROBLEM 1
 #
+
 class SimpleVirus(object):
 
     """
@@ -179,6 +179,7 @@ class Patient(object):
             self.viruses.append(v)
 
         return self.getTotalPop()
+
 #
 # PROBLEM 2
 #
@@ -197,11 +198,40 @@ def simulationWithoutDrug(numViruses, maxPop, maxBirthProb, clearProb,
     clearProb: Maximum clearance probability (a float between 0-1)
     numTrials: number of simulation runs to execute (an integer)
     """
+    maxTimeSteps = 300
+    trials = []
+    pop_averages_per_step = []
 
-    # TODO
+    for trial in range(numTrials):
+        # Set-up
+        list_viruses = []
+        for i in range(numViruses):
+            list_viruses.append(SimpleVirus(maxBirthProb, clearProb))
+        p = Patient(list_viruses, maxPop)
 
+        # Running sim and saving results 
+        virus_pop_per_step = []
+        for j in range(maxTimeSteps):
+            p.update()
+            virus_pop_per_step.append(p.getTotalPop())
 
+        trials.append(virus_pop_per_step)
 
+    for i in range(len(virus_pop_per_step)):
+        tempList = [] # List to store current totals to average
+        for t in trials:
+            tempList.append(t[i])
+        pop_averages_per_step.append(sum(tempList)/len(tempList))
+
+    pylab.figure(1)
+    pylab.plot(pop_averages_per_step)
+    pylab.title('Average Virus Population Per Timestep')
+    pylab.xlabel('Timestep')
+    pylab.ylabel('Average Virus Population')
+    pylab.legend(loc = 'best')
+    pylab.show()
+
+#simulationWithoutDrug(100,1000,.1,.05,10)
 #
 # PROBLEM 3
 #
@@ -227,21 +257,21 @@ class ResistantVirus(SimpleVirus):
         mutProb: Mutation probability for this virus particle (a float). This is
         the probability of the offspring acquiring or losing resistance to a drug.
         """
-
-        # TODO
-
+        SimpleVirus.__init__(self, maxBirthProb, clearProb)
+        self.resistances = resistances
+        self.mutProb = mutProb    
 
     def getResistances(self):
         """
         Returns the resistances for this virus.
         """
-        # TODO
+        return self.resistances
 
     def getMutProb(self):
         """
         Returns the mutation probability for this virus.
         """
-        # TODO
+        return self.mutProb
 
     def isResistantTo(self, drug):
         """
@@ -255,7 +285,9 @@ class ResistantVirus(SimpleVirus):
         otherwise.
         """
         
-        # TODO
+        if self.resistances.get(drug, False):
+            return True
+        else: return False
 
 
     def reproduce(self, popDensity, activeDrugs):
@@ -303,9 +335,19 @@ class ResistantVirus(SimpleVirus):
         NoChildException if this virus particle does not reproduce.
         """
 
-        # TODO
-
-            
+        for drug in activeDrugs:
+            # Check if resistance to all drugs
+            if self.resistances.get(drug, False):
+                childResistances = {}
+                for k,v in self.resistances.items():
+                    # Switch resistances here
+                    if random.random() < self.mutProb:
+                        childResistances[k] = !v
+                    else:
+                        childResistances[k] = v
+                childVirus = ResistantVirus(self.maxBirthProb, self.clearProb, childResistances, self.mutProb) 
+            else:
+                raise NoChildException()
 
 class TreatedPatient(Patient):
     """
