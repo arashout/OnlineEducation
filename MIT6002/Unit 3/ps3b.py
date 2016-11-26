@@ -284,10 +284,7 @@ class ResistantVirus(SimpleVirus):
         returns: True if this virus instance is resistant to the drug, False
         otherwise.
         """
-        
-        if self.resistances.get(drug, False):
-            return True
-        else: return False
+        return self.resistances.get(drug, False)
 
 
     def reproduce(self, popDensity, activeDrugs):
@@ -334,20 +331,27 @@ class ResistantVirus(SimpleVirus):
         maxBirthProb and clearProb values as this virus. Raises a
         NoChildException if this virus particle does not reproduce.
         """
+        def createChildVirus(self):
+            childResistances = {}
+            for k,v in self.resistances.items():
+                # Switch resistances here
+                if random.random() < self.mutProb:
+                    childResistances[k] = not v
+                else:
+                    childResistances[k] = v
+            return ResistantVirus(self.maxBirthProb, self.clearProb, childResistances, self.mutProb)
 
-        for drug in activeDrugs:
-            # Check if resistance to all drugs
-            if self.resistances.get(drug, False):
-                childResistances = {}
-                for k,v in self.resistances.items():
-                    # Switch resistances here
-                    if random.random() < self.mutProb:
-                        childResistances[k] = !v
-                    else:
-                        childResistances[k] = v
-                childVirus = ResistantVirus(self.maxBirthProb, self.clearProb, childResistances, self.mutProb) 
-            else:
-                raise NoChildException()
+        if random.random() < self.maxBirthProb * (1 - popDensity):
+            for drug in activeDrugs:
+                # Check if resistance to all drugs
+                if self.resistances.get(drug, False):
+                    return createChildVirus(self)
+                else:
+                    raise NoChildException()
+            #Case if there are no active drugs
+            return createChildVirus(self)
+        else:
+            raise NoChildException()
 
 class TreatedPatient(Patient):
     """
@@ -432,7 +436,6 @@ class TreatedPatient(Patient):
         """
 
         # TODO
-
 
 
 #
