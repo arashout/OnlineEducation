@@ -1,4 +1,5 @@
 import CollinearPoints.BruteCollinearPoints;
+import CollinearPoints.FastCollinearPoints;
 import CollinearPoints.LineSegment;
 import CollinearPoints.Point;
 import edu.princeton.cs.algs4.In;
@@ -10,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
 
         // read the n points from a file
-        In in = new In("C:\\Users\\arash\\Github\\OnlineEducation\\Algorithms-I\\tests\\collinear\\input6.txt");
+        In in = new In("C:\\Users\\arash_000\\Documents\\Github\\OnlineEducation\\Algorithms-I\\tests\\collinear\\input8.txt");
         int n = in.readInt();
         Point[] points = new Point[n];
         for (int i = 0; i < n; i++) {
@@ -29,7 +30,7 @@ public class Main {
         StdDraw.show();
 
         // print and draw the line segments
-        BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+        FastCollinearPoints collinear = new FastCollinearPoints(points);
         for (LineSegment segment : collinear.segments()) {
             StdOut.println(segment);
             segment.draw();
