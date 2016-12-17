@@ -103,10 +103,10 @@ public class Point implements Comparable<Point> {
     }
     private class slopeOrder implements Comparator<Point>{
         public int compare(Point p, Point q){
-            if(slopeTo(p) < slopeTo(q)){
+            if(Point.this.slopeTo(p) < Point.this.slopeTo(q)){
                 return -1;
             }
-            else if (slopeTo(q) > slopeTo(p)){
+            else if (Point.this.slopeTo(p) > Point.this.slopeTo(q)){
                 return +1;
             }
             else{
@@ -133,16 +133,26 @@ public class Point implements Comparable<Point> {
     public static void main(String[] args)
     {
         /* YOUR CODE HERE */
-        Point p0 = new Point(0, 0);
-        Point[] set = new Point[10];
-        for (int i = 0; i < 10; i++)
+        int n = 10;
+        Point p0 = new Point(0, 0); //Origin point
+        Point[] set = new Point[n];
+        for (int i = 0; i < n; i++)
         {
-            int xPos = StdRandom.uniform(10) - 5;
-            int yPos = StdRandom.uniform(10) - 5;
+            int xPos = StdRandom.uniform(n) - n/2;
+            int yPos = StdRandom.uniform(n) - n/2;
             Point p = new Point(xPos,yPos);
             set[i] = p;
             System.out.print (p.toString() + ' ');
         }
+        StdOut.println();
+        StdOut.println();
+        //Print Point Order
+        Arrays.sort(set);
+        for (int i = 0; i < n; i++) {
+            StdOut.print(set[i]);
+        }
+        //Print Slope Order to p0
+        StdOut.println();
         StdOut.println();
         Arrays.sort(set,p0.slopeOrder());
         Double[] slopes = new Double[10];

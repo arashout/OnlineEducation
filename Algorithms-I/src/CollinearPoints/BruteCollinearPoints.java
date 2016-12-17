@@ -2,13 +2,10 @@ package CollinearPoints;
 
 import java.util.Arrays;
 
-/**
- * Created by arash_000 on 2016-11-29.
- */
-public class FastCollinearPoints {
+public class BruteCollinearPoints {
     private LineSegment[] lineSegs = new LineSegment[1];
     private int count;
-    public FastCollinearPoints(Point[] points){
+    public BruteCollinearPoints(Point[] points){
         //VALIDATION STEPS
 
         //Make sure argument not null
@@ -25,15 +22,36 @@ public class FastCollinearPoints {
         }
 
         //CREATE LINE SEGMENTS
-        count = 0;
 
+        Point p, q, r, s; //Check if these points are on a line
+        count = 0;
+        for (int i = 0; i < n - 3; i++) {
+            p = points[i];
+            for (int j = i + 1; j < n - 2; j++) {
+                q = points[j];
+                for (int k = j + 1; k < n - 1; k++) {
+                    r = points[k];
+                    for (int l = k + 1; l < n; l++) {
+                        s = points[l];
+                        //Check Slopes
+                        if(p.slopeTo(q) == p.slopeTo(r)
+                                && p.slopeTo(r) == p.slopeTo(s)){
+                            lineSegs[count] = new LineSegment(p, s);
+                            count++;
+                            if(count >= lineSegs.length) lineSegs = resize(lineSegs, count * 2); //Resize Array
+                        }
+                    }
+                }
+            }
+        }
+        lineSegs = resize(lineSegs, count); //Resize back to normal
     }
     public int numberOfSegments(){
         return count;
-    }        // the number of line segments
+    }
     public LineSegment[] segments(){
         return lineSegs;
-    }                // the line segments
+    }
     private LineSegment[] resize(LineSegment[] arr, int newCapacity) {
         LineSegment[] newArr = new LineSegment[newCapacity];
         int index = 0;
