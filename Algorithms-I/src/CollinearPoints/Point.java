@@ -17,7 +17,6 @@ import edu.princeton.cs.algs4.StdRandom;
 import java.util.Arrays;
 
 public class Point implements Comparable<Point> {
-    public final Comparator<Point> SLOPE_ORDER = new SLOPE_ORDER();
     private final int x;     // x-coordinate of this point
     private final int y;     // y-coordinate of this point
 
@@ -99,18 +98,22 @@ public class Point implements Comparable<Point> {
      *
      * @return the Comparator that defines this ordering on points
      */
-    private class SLOPE_ORDER implements Comparator<Point>
-    {
-        public int compare (Point i, Point j)
-        {
-            double slope1 = slopeTo(i);
-            double slope2 = slopeTo(j);
-            if (slope1 < slope2) {return -1;}
-            else if (slope1 > slope2) {return 1;}
-            else {return 0;}
+    public Comparator<Point> slopeOrder() {
+       return new slopeOrder();
+    }
+    private class slopeOrder implements Comparator<Point>{
+        public int compare(Point p, Point q){
+            if(slopeTo(p) < slopeTo(q)){
+                return -1;
+            }
+            else if (slopeTo(q) > slopeTo(p)){
+                return +1;
+            }
+            else{
+                return 0;
+            }
         }
     }
-
 
     /**
      * Returns a string representation of this point.
@@ -141,7 +144,7 @@ public class Point implements Comparable<Point> {
             System.out.print (p.toString() + ' ');
         }
         StdOut.println();
-        Arrays.sort(set,p0.SLOPE_ORDER);
+        Arrays.sort(set,p0.slopeOrder());
         Double[] slopes = new Double[10];
         for (int i = 0; i < 10; i++)
         {

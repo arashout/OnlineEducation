@@ -1,4 +1,3 @@
-import CollinearPoints.BruteCollinearPoints;
 import CollinearPoints.FastCollinearPoints;
 import CollinearPoints.LineSegment;
 import CollinearPoints.Point;
@@ -30,11 +29,13 @@ public class Main {
         StdDraw.show();
 
         // print and draw the line segments
+        /*
         FastCollinearPoints collinear = new FastCollinearPoints(points);
         for (LineSegment segment : collinear.segments()) {
             StdOut.println(segment);
             segment.draw();
         }
         StdDraw.show();
+        */
     }
 }
