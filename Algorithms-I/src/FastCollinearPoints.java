@@ -21,7 +21,7 @@ public class FastCollinearPoints {
         Arrays.sort(points);
         //Ensure that no points are repeated
         for (int i = 0; i < n - 1; i++) {
-            if(points[i] == points[i + 1]) throw new IllegalArgumentException();
+            if(points[i].compareTo(points[i+1]) == 0) throw new IllegalArgumentException();
         }
 
         //CREATE LINE SEGMENTS
