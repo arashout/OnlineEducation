@@ -1,4 +1,6 @@
-//import edu.princeton.cs.algs4.StdOut;
+package CollinearPoints;//import edu.princeton.cs.algs4.StdOut;
+
+import CollinearPoints.LineSegment;
 
 import java.util.Arrays;
 

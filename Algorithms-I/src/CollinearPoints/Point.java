@@ -1,6 +1,6 @@
-/******************************************************************************
- *  Compilation:  javac Point.java
- *  Execution:    java Point
+package CollinearPoints; /******************************************************************************
+ *  Compilation:  javac CollinearPoints.Point.java
+ *  Execution:    java CollinearPoints.Point
  *  Dependencies: none
  *
  *  An immutable data type for points in the plane.
@@ -32,7 +32,7 @@ public class Point implements Comparable<Point> {
     }
 
     /**
-     * Unit tests the Point data type.
+     * Unit tests the CollinearPoints.Point data type.
      */
     public static void main(String[] args) {
         /* YOUR CODE HERE */
@@ -48,7 +48,7 @@ public class Point implements Comparable<Point> {
         }
         StdOut.println();
         StdOut.println();
-        //Print Point Order
+        //Print CollinearPoints.Point Order
         Arrays.sort(set);
         for (int i = 0; i < n; i++) {
             StdOut.print(set[i]);

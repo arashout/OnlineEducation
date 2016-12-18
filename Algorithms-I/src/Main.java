@@ -2,6 +2,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import CollinearPoints.FastCollinearPoints;
+import CollinearPoints.LineSegment;
+import CollinearPoints.Point;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 
@@ -40,8 +43,8 @@ public class Main {
             StdDraw.show();
             /*
             StdOut.println("Brute");
-            BruteCollinearPoints bcollinear = new BruteCollinearPoints(points);
-            for (LineSegment segment : bcollinear.segments()) {
+            CollinearPoints.BruteCollinearPoints bcollinear = new CollinearPoints.BruteCollinearPoints(points);
+            for (CollinearPoints.LineSegment segment : bcollinear.segments()) {
                 StdOut.println(segment);
                 segment.draw();
             }

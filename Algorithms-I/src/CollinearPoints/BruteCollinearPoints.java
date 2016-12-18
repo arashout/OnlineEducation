@@ -1,3 +1,7 @@
+package CollinearPoints;
+
+import CollinearPoints.LineSegment;
+
 import java.util.Arrays;
 
 public class BruteCollinearPoints {

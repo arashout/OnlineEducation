@@ -254,7 +254,7 @@
         </module>
 
         <module name="OuterTypeFilename">
-            <message key="type.file.mismatch" value="The name of the outer type and the file do not match. For example, the class Point must be in a file named Point.java."/>
+            <message key="type.file.mismatch" value="The name of the outer type and the file do not match. For example, the class CollinearPoints.Point must be in a file named CollinearPoints.Point.java."/>
         </module>
 
 
