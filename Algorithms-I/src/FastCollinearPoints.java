@@ -41,6 +41,12 @@ public class FastCollinearPoints {
                 naturalOrder = p.compareTo(q) != 1;
                 if(curSlope == nextSlope && naturalOrder){
                     slopeCount++;
+                    //This will handle vertical lines with slope of infinity that always ends up sorted at end
+                    if(j == n - 2 && slopeCount >= 3 && naturalOrder){ //If this is last iteration
+                        lineSegs[count] = new LineSegment(p, pointsCopy[j+1]); //Add p with last point
+                        count++;
+                        if(count >= lineSegs.length) lineSegs = resize(lineSegs, count * 2); //Resize Array
+                    }
                 }
                 else if(curSlope != nextSlope && slopeCount >= 3 && naturalOrder){
 

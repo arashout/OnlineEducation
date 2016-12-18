@@ -11,7 +11,7 @@ public class Main {
 
         // read the n points from a file
         try {
-            Scanner sc = new Scanner(new File("C:\\Users\\arash\\Github\\OnlineEducation\\Algorithms-I\\tests\\collinear\\.txt"));
+            Scanner sc = new Scanner(new File("C:\\Users\\arash\\Github\\OnlineEducation\\Algorithms-I\\tests\\collinear\\vertical5.txt"));
             int n = sc.nextInt();
             Point[] points = new Point[n];
             for (int i = 0; i < n; i++) {
