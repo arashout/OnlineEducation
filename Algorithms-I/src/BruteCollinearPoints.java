@@ -4,9 +4,10 @@ public class BruteCollinearPoints {
     private LineSegment[] lineSegs = new LineSegment[1];
     private int count;
 
-    public BruteCollinearPoints(Point[] points) {
+    public BruteCollinearPoints(Point[] realPoints) {
+        //Immutability
+        Point[] points = realPoints.clone();
         //VALIDATION STEPS
-
         //Make sure argument not null
         if (points == null) throw new NullPointerException();
         int n = points.length;
@@ -46,7 +47,7 @@ public class BruteCollinearPoints {
     }
 
     public LineSegment[] segments() {
-        return lineSegs;
+        return lineSegs.clone();
     }
 
     private LineSegment[] resize(LineSegment[] arr, int newCapacity) {

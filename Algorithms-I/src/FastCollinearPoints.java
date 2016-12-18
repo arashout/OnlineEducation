@@ -10,7 +10,9 @@ public class FastCollinearPoints {
     private LineSegment[] lineSegs = new LineSegment[1];
     private int count;
 
-    public FastCollinearPoints(Point[] points) {
+    public FastCollinearPoints(Point[] realPoints) {
+        //Immutability
+        Point[] points = realPoints.clone();
         //VALIDATION STEPS
         //Make sure argument not null
         if (points == null) throw new NullPointerException();
@@ -78,7 +80,7 @@ public class FastCollinearPoints {
     }        // the number of line segments
 
     public LineSegment[] segments() {
-        return lineSegs;
+        return lineSegs.clone();
     }                // the line segments
 
     private LineSegment[] resize(LineSegment[] arr, int newCapacity) {
