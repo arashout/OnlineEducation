@@ -35,17 +35,13 @@ public class FastCollinearPoints {
             slopeCount = 1;
             pointsCopy = points.clone();
             Arrays.sort(pointsCopy, p.slopeOrder());
-            for (int j = 1; j < n - 1; j++) {
+            for (int j = 0; j < n - 1; j++) {
                 q = pointsCopy[j];
                 curSlope = p.slopeTo(q);
                 nextSlope = p.slopeTo(pointsCopy[j + 1]);
                 //Ensure that points are in natural order - OTHERWISE DON'T MAKE LINE SEGMENT
                 naturalOrder = p.compareTo(q) != 1;
-                if (curSlope == nextSlope) {
-                    //Ensure no subsequent lines
-                    if(!naturalOrder){
-                        break;
-                    }
+                if (curSlope == nextSlope && naturalOrder) {
                     slopeCount++;
                     //This will handle vertical lines with slope of infinity that always ends up sorted at end
                     if (j == n - 2 && slopeCount >= 3 && naturalOrder) { //If this is last iteration
@@ -59,7 +55,19 @@ public class FastCollinearPoints {
                     count++;
                     if (count >= lineSegs.length) lineSegs = resize(lineSegs, count * 2); //Resize Array
                     slopeCount = 1;
-                } else slopeCount = 1;
+                } else if ( curSlope == nextSlope && !naturalOrder){ //This is for segments that contain more than 4
+                    int k = j + 1; //Next next point
+                    while(true){ //Basically ensures that I only ever go
+                        nextSlope = p.slopeTo(pointsCopy[k]);
+                        if(curSlope != nextSlope || k == n - 1){
+                            break;
+                        }
+                        k++;
+                    }
+                    j = k - 1;
+                    slopeCount = 1;
+                }
+                else slopeCount = 1;
             }
         }
         lineSegs = resize(lineSegs, count); //Resize back to normal

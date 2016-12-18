@@ -11,7 +11,7 @@ public class Main {
 
         // read the n points from a file
         try {
-            Scanner sc = new Scanner(new File("C:\\Users\\arash\\Github\\OnlineEducation\\Algorithms-I\\tests\\collinear\\input9.txt"));
+            Scanner sc = new Scanner(new File("C:\\Users\\arash\\Github\\OnlineEducation\\Algorithms-I\\tests\\collinear\\input40.txt"));
             int n = sc.nextInt();
             Point[] points = new Point[n];
             for (int i = 0; i < n; i++) {
@@ -38,13 +38,14 @@ public class Main {
                 segment.draw();
             }
             StdDraw.show();
-
+            /*
             StdOut.println("Brute");
             BruteCollinearPoints bcollinear = new BruteCollinearPoints(points);
             for (LineSegment segment : bcollinear.segments()) {
                 StdOut.println(segment);
                 segment.draw();
             }
+            */
         }
         catch (FileNotFoundException e){
             StdOut.println("File not found cuh");
