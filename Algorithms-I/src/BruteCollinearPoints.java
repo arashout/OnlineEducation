@@ -3,16 +3,17 @@ import java.util.Arrays;
 public class BruteCollinearPoints {
     private LineSegment[] lineSegs = new LineSegment[1];
     private int count;
-    public BruteCollinearPoints(Point[] points){
+
+    public BruteCollinearPoints(Point[] points) {
         //VALIDATION STEPS
 
         //Make sure argument not null
-        if(points == null) throw new NullPointerException();
+        if (points == null) throw new NullPointerException();
         int n = points.length;
         Arrays.sort(points);
         //Ensure that no points are repeated
         for (int i = 0; i < n - 1; i++) {
-            if(points[i].compareTo(points[i+1]) == 0) throw new IllegalArgumentException();
+            if (points[i].compareTo(points[i + 1]) == 0) throw new IllegalArgumentException();
         }
 
         //CREATE LINE SEGMENTS
@@ -27,11 +28,11 @@ public class BruteCollinearPoints {
                     for (int l = k + 1; l < n; l++) {
                         s = points[l];
                         //Check Slopes
-                        if(p.slopeTo(q) == p.slopeTo(r)
-                                && p.slopeTo(r) == p.slopeTo(s)){
+                        if (p.slopeTo(q) == p.slopeTo(r)
+                                && p.slopeTo(r) == p.slopeTo(s)) {
                             lineSegs[count] = new LineSegment(p, s);
                             count++;
-                            if(count >= lineSegs.length) lineSegs = resize(lineSegs, count * 2); //Resize Array
+                            if (count >= lineSegs.length) lineSegs = resize(lineSegs, count * 2); //Resize Array
                         }
                     }
                 }
@@ -39,12 +40,15 @@ public class BruteCollinearPoints {
         }
         lineSegs = resize(lineSegs, count); //Resize back to normal
     }
-    public int numberOfSegments(){
+
+    public int numberOfSegments() {
         return count;
     }
-    public LineSegment[] segments(){
+
+    public LineSegment[] segments() {
         return lineSegs;
     }
+
     private LineSegment[] resize(LineSegment[] arr, int newCapacity) {
         LineSegment[] newArr = new LineSegment[newCapacity];
         int index = 0;

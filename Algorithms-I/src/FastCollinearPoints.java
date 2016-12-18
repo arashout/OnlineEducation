@@ -9,15 +9,16 @@ import java.util.Arrays;
 public class FastCollinearPoints {
     private LineSegment[] lineSegs = new LineSegment[1];
     private int count;
-    public FastCollinearPoints(Point[] points){
+
+    public FastCollinearPoints(Point[] points) {
         //VALIDATION STEPS
         //Make sure argument not null
-        if(points == null) throw new NullPointerException();
+        if (points == null) throw new NullPointerException();
         int n = points.length;
         Arrays.sort(points);
         //Ensure that no points are repeated
         for (int i = 0; i < n - 1; i++) {
-            if(points[i].compareTo(points[i+1]) == 0) throw new IllegalArgumentException();
+            if (points[i].compareTo(points[i + 1]) == 0) throw new IllegalArgumentException();
         }
 
         //CREATE LINE SEGMENTS
@@ -26,46 +27,52 @@ public class FastCollinearPoints {
         double curSlope, nextSlope;
         boolean naturalOrder;
         Point[] pointsCopy;
-        Point p,q;
+
+        Point p, q;
 
         for (int i = 0; i < n; i++) {
             p = points[i];
             slopeCount = 1;
             pointsCopy = points.clone();
             Arrays.sort(pointsCopy, p.slopeOrder());
-            for (int j = 1; j < n - 1; j++) {//Ignore first point = itself
+            for (int j = 1; j < n - 1; j++) {
                 q = pointsCopy[j];
                 curSlope = p.slopeTo(q);
-                nextSlope = p.slopeTo(pointsCopy[j+1]);
+                nextSlope = p.slopeTo(pointsCopy[j + 1]);
                 //Ensure that points are in natural order - OTHERWISE DON'T MAKE LINE SEGMENT
                 naturalOrder = p.compareTo(q) != 1;
-                if(curSlope == nextSlope && naturalOrder){
+                if (curSlope == nextSlope) {
+                    //Ensure no subsequent lines
+                    if(!naturalOrder){
+                        break;
+                    }
                     slopeCount++;
                     //This will handle vertical lines with slope of infinity that always ends up sorted at end
-                    if(j == n - 2 && slopeCount >= 3 && naturalOrder){ //If this is last iteration
-                        lineSegs[count] = new LineSegment(p, pointsCopy[j+1]); //Add p with last point
+                    if (j == n - 2 && slopeCount >= 3 && naturalOrder) { //If this is last iteration
+                        lineSegs[count] = new LineSegment(p, pointsCopy[j + 1]); //Add p with last point
                         count++;
-                        if(count >= lineSegs.length) lineSegs = resize(lineSegs, count * 2); //Resize Array
+                        if (count >= lineSegs.length) lineSegs = resize(lineSegs, count * 2); //Resize Array
                     }
-                }
-                else if(curSlope != nextSlope && slopeCount >= 3 && naturalOrder){
-
+                //When slope changes - if enough points collected add line segment
+                } else if (curSlope != nextSlope && slopeCount >= 3 && naturalOrder) {
                     lineSegs[count] = new LineSegment(p, q);
                     count++;
-                    if(count >= lineSegs.length) lineSegs = resize(lineSegs, count * 2); //Resize Array
+                    if (count >= lineSegs.length) lineSegs = resize(lineSegs, count * 2); //Resize Array
                     slopeCount = 1;
-                }
-                else slopeCount = 1;
+                } else slopeCount = 1;
             }
         }
         lineSegs = resize(lineSegs, count); //Resize back to normal
     }
-    public int numberOfSegments(){
+
+    public int numberOfSegments() {
         return count;
     }        // the number of line segments
-    public LineSegment[] segments(){
+
+    public LineSegment[] segments() {
         return lineSegs;
     }                // the line segments
+
     private LineSegment[] resize(LineSegment[] arr, int newCapacity) {
         LineSegment[] newArr = new LineSegment[newCapacity];
         int index = 0;
