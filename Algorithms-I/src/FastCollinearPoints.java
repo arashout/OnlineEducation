@@ -13,11 +13,7 @@ public class FastCollinearPoints {
         //VALIDATION STEPS
         //Make sure argument not null
         if(points == null) throw new NullPointerException();
-        //Make sure no point in points is null
         int n = points.length;
-        for (int i = 0; i < n; i++) {
-            if(points[i] == null) throw new NullPointerException();
-        }
         Arrays.sort(points);
         //Ensure that no points are repeated
         for (int i = 0; i < n - 1; i++) {
