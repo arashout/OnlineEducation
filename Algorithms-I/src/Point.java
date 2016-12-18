@@ -1,5 +1,3 @@
-package CollinearPoints;
-
 /******************************************************************************
  *  Compilation:  javac Point.java
  *  Execution:    java Point
@@ -65,8 +63,11 @@ public class Point implements Comparable<Point> {
     public double slopeTo(Point that) {
         // Degenerate line segment
         if(this.y == that.y && this.x == that.x) return Double.NEGATIVE_INFINITY;
+        //Vertical Line
         else if(this.x == that.x) return Double.POSITIVE_INFINITY;
+        //Horizontal Line
         else if(this.y == that.y) return 0;
+        //Normal
         else{
             return ((double)that.y - this.y)/((double)that.x - this.x);
         }

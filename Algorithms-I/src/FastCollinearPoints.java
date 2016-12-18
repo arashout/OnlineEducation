@@ -1,6 +1,7 @@
-package CollinearPoints;
+//import edu.princeton.cs.algs4.StdOut;
 
 import java.util.Arrays;
+
 
 /**
  * Created by arash_000 on 2016-11-29.
@@ -10,7 +11,6 @@ public class FastCollinearPoints {
     private int count;
     public FastCollinearPoints(Point[] points){
         //VALIDATION STEPS
-
         //Make sure argument not null
         if(points == null) throw new NullPointerException();
         //Make sure no point in points is null
@@ -26,7 +26,37 @@ public class FastCollinearPoints {
 
         //CREATE LINE SEGMENTS
         count = 0;
+        int slopeCount;
+        double curSlope, nextSlope;
+        boolean naturalOrder;
+        Point[] pointsCopy;
+        Point p,q;
 
+        for (int i = 0; i < n; i++) {
+            p = points[i];
+            slopeCount = 1;
+            pointsCopy = points.clone();
+            Arrays.sort(pointsCopy, p.slopeOrder());
+            for (int j = 1; j < n - 1; j++) {//Ignore first point = itself
+                q = pointsCopy[j];
+                curSlope = p.slopeTo(q);
+                nextSlope = p.slopeTo(pointsCopy[j+1]);
+                //Ensure that points are in natural order - OTHERWISE DON'T MAKE LINE SEGMENT
+                naturalOrder = p.compareTo(q) != 1;
+                if(curSlope == nextSlope && naturalOrder){
+                    slopeCount++;
+                }
+                else if(curSlope != nextSlope && slopeCount >= 3 && naturalOrder){
+
+                    lineSegs[count] = new LineSegment(p, q);
+                    count++;
+                    if(count >= lineSegs.length) lineSegs = resize(lineSegs, count * 2); //Resize Array
+                    slopeCount = 1;
+                }
+                else slopeCount = 1;
+            }
+        }
+        lineSegs = resize(lineSegs, count); //Resize back to normal
     }
     public int numberOfSegments(){
         return count;
