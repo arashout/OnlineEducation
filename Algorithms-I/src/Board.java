@@ -1,4 +1,4 @@
-import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdOut;
 
 public class Board {
@@ -106,12 +106,12 @@ public class Board {
         int[] spaceLoc = spaceCoords(tiles);
         int r = spaceLoc[0];
         int c = spaceLoc[1];
-        Queue<Board> neigh = new Queue<>();
+        Stack<Board> neigh = new Stack<>();
         //All Cases
-        if (r > 0) neigh.enqueue(new Board(swap(r, c, r - 1, c)));
-        if (c > 0) neigh.enqueue(new Board(swap(r, c, r, c - 1)));
-        if (r < dimension() - 1) neigh.enqueue(new Board(swap(r, c, r + 1, c)));
-        if (c < dimension() - 1) neigh.enqueue(new Board(swap(r, c, r, c + 1)));
+        if (r > 0) neigh.push(new Board(swap(r, c, r - 1, c)));
+        if (c > 0) neigh.push(new Board(swap(r, c, r, c - 1)));
+        if (r < dimension() - 1) neigh.push(new Board(swap(r, c, r + 1, c)));
+        if (c < dimension() - 1) neigh.push(new Board(swap(r, c, r, c + 1)));
 
         return neigh;
     }     // all neighboring boards

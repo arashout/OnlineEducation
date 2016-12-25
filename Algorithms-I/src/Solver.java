@@ -1,5 +1,5 @@
 import edu.princeton.cs.algs4.MinPQ;
-import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.Stack;
 
 public class Solver {
     private MinPQ<Node> initPQ;
@@ -65,13 +65,13 @@ public class Solver {
     }                     // min number of moves to solve initial board; -1 if unsolvable
 
     public Iterable<Board> solution() {
-        Queue<Board> q = new Queue<Board>();
+        Stack<Board> q = new Stack<Board>();
         Node curNode = finalBoard;
         if (isSolvable()) {
             //Step back through final solution
             while (true) {
                 if (curNode == null) break;
-                q.enqueue(curNode.getBoard());
+                q.push(curNode.getBoard());
                 curNode = curNode.prevNode;
             }
             return q;
