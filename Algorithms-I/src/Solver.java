@@ -1,80 +1,117 @@
 import edu.princeton.cs.algs4.MinPQ;
 import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.StdOut;
 
 public class Solver {
-    private MinPQ initPQ;
-    private MinPQ twinPQ;
+    private MinPQ<Node> initPQ;
+    private MinPQ<Node> twinPQ;
     private int minMoves;
+    private Node finalBoard;
     private boolean isSolvable;
 
-    private class Node implements Comparable<Node>{
-        private int numMoves;
-        private Board board;
-        private Node prevNode;
-
-
-        public Node(Board b, int m, Node prev){
-            prevNode = prev;
-            board = b;
-            numMoves = m;
-        }
-
-        public int compareTo(Node other){
-            int thisNodeScore =  this.board.manhattan() + this.numMoves;
-            int otherNodeScore = other.board.manhattan() + other.numMoves;
-            return thisNodeScore - otherNodeScore;
-        }
-        public boolean isGoal(){
-            return board.isGoal();
-        }
-        public boolean equals(Object y){
-            return board.equals(y);
-        }
-        public Iterable<Board> getNeighbors(){
-            return board.neighbors();
-        }
-    }
-    public Solver(Board initial){
+    public Solver(Board initial) {
         //Set-up
         Board initialTwin = initial.twin();
         initPQ = new MinPQ<Node>();
         twinPQ = new MinPQ<Node>();
 
-        //Priority Queue
-        initPQ.insert(new Node(initial, 0, null));
-        twinPQ.insert(new Node(initialTwin , 0, null));
-
+        //Priority Queue Initial
         Node curNode, twinCurNode;
-        while(true){
+        curNode = new Node(initial, 0, null);
+        twinCurNode = new Node(initialTwin, 0, null);
+        initPQ.insert(curNode);
+        twinPQ.insert(twinCurNode);
+
+
+        while (true) {
             //Process Node closest to goal
-            curNode = (Node) initPQ.delMin();
-            twinCurNode = (Node) twinPQ.delMin();
+            curNode = initPQ.delMin();
+            twinCurNode = twinPQ.delMin();
             //Check if goal reached
-            if(curNode.isGoal()) break;
-            else if(twinCurNode.isGoal()) break;
+            if (curNode.isGoal()) {
+                minMoves = curNode.numMoves;
+                isSolvable = true;
+                finalBoard = curNode;
+                break;
+            } else if (twinCurNode.isGoal()) {
+                minMoves = -1;
+                isSolvable = false;
+            }
 
             //Add Neighbors
-            for(Board b : curNode.getNeighbors()){
-                if(!b.equals(initial)) initPQ.insert(new Node(b, curNode.numMoves + 1, curNode));
+            Node n;
+            for (Board b : curNode.getNeighbors()) {
+                n = new Node(b, curNode.numMoves + 1, curNode);
+                if (!b.equals(initial)) initPQ.insert(n);
             }
-            for(Board b : twinCurNode.getNeighbors()){
-                if(!b.equals(initialTwin)) twinPQ.insert(new Node(b, twinCurNode.numMoves + 1, twinCurNode));
+            for (Board b : twinCurNode.getNeighbors()) {
+                n = new Node(b, twinCurNode.numMoves + 1, twinCurNode);
+                if (!b.equals(initialTwin)) twinPQ.insert(n);
             }
 
         }
 
     }           // find a solution to the initial board (using the A* algorithm)
-    public boolean isSolvable(){
-        return isSolvable;
-    }            // is the initial board solvable?
-    public int moves(){
-        return minMoves;
-    }                     // min number of moves to solve initial board; -1 if unsolvable
-    public Iterable<Board> solution(){
-        return null;
-    }      // sequence of boards in a shortest solution; null if unsolvable
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
 
     } // solve a slider puzzle (given below)
+
+    public boolean isSolvable() {
+        return isSolvable;
+    }            // is the initial board solvable?
+
+    public int moves() {
+        return minMoves;
+    }                     // min number of moves to solve initial board; -1 if unsolvable
+
+    public Iterable<Board> solution() {
+        Queue<Board> q = new Queue<Board>();
+        Node curNode = finalBoard;
+        if (isSolvable()) {
+            //Step back through final solution
+            while (true) {
+                if (curNode == null) break;
+                q.enqueue(curNode.getBoard());
+                curNode = curNode.prevNode;
+            }
+            return q;
+
+        }
+        return null;
+    }      // sequence of boards in a shortest solution; null if unsolvable
+
+    private class Node implements Comparable<Node> {
+        private int numMoves;
+        private Board board;
+        private Node prevNode;
+
+
+        public Node(Board b, int m, Node prev) {
+            prevNode = prev;
+            board = b;
+            numMoves = m;
+        }
+
+        public int compareTo(Node other) {
+            int thisNodeScore = this.board.manhattan() + this.numMoves;
+            int otherNodeScore = other.board.manhattan() + other.numMoves;
+            return thisNodeScore - otherNodeScore;
+        }
+
+        public boolean isGoal() {
+            return board.isGoal();
+        }
+
+        public boolean equals(Object y) {
+            return board.equals(y);
+        }
+
+        public Iterable<Board> getNeighbors() {
+            return board.neighbors();
+        }
+
+        public Board getBoard() {
+            return board;
+        }
+    }
 }

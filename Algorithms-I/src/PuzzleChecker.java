@@ -25,7 +25,6 @@
  *
  ******************************************************************************/
 
-import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 
 import java.io.File;
@@ -36,7 +35,8 @@ public class PuzzleChecker {
 
     public static void main(String[] args) {
         try {
-            Scanner sc = new Scanner(new File("C:\\Users\\arash\\Github\\OnlineEducation\\Algorithms-I\\tests\\8puzzle\\puzzle2x2-00.txt"));
+            String filename = new String("C:\\Users\\arash\\Github\\OnlineEducation\\Algorithms-I\\tests\\8puzzle\\puzzle2x2-01.txt");
+            Scanner sc = new Scanner(new File(filename));
             int n = sc.nextInt();
             int [][] tiles = new int[n][n];
             for (int i = 0; i < n; i++) {
@@ -47,7 +47,11 @@ public class PuzzleChecker {
             // solve the slider puzzle
             Board initial = new Board(tiles);
             Solver solver = new Solver(initial);
-            //StdOut.println(filename + ": " + solver.moves());
+            StdOut.println(filename + ": " + solver.moves());
+
+            for(Board b : solver.solution()){
+                StdOut.println(b);
+            }
 
         }
         catch (FileNotFoundException e){
