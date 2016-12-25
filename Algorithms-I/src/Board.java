@@ -3,7 +3,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class Board {
     private static final int SPACE = 0;
-    private int[][] tiles;
+    private final int[][] tiles;
     private int[][] goalBoard;
 
     public Board(int[][] blocks) {
@@ -91,13 +91,20 @@ public class Board {
         throw new RuntimeException();
     }
 
-    public boolean equals(Object y) {
-        if (y == this) return true;
-        if (y == null || !(y instanceof Board) || ((Board) y).tiles.length != tiles.length) return false;
-        for (int row = 0; row < tiles.length; row++)
-            for (int col = 0; col < tiles.length; col++)
-                if (((Board) y).tiles[row][col] != this.tiles[row][col]) return false;
+    public boolean equals(Object x) {
+        if (x == this)
+            return true;
+        if (x == null)
+            return false;
+        if (x.getClass() != this.getClass())
+            return false;
 
+        Board that = (Board) x;
+        for (int i = 0; i < this.tiles.length; i++) {
+            for (int j = 0; j < this.tiles.length; j++) {
+                if(this.tiles[i][j] != that.tiles[i][j]) return false;
+            }
+        }
         return true;
     }
 

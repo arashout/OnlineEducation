@@ -35,6 +35,7 @@ public class Solver {
             } else if (twinCurNode.isGoal()) {
                 minMoves = -1;
                 isSolvable = false;
+                break;
             }
 
             //Add Neighbors
@@ -84,18 +85,33 @@ public class Solver {
         private int numMoves;
         private Board board;
         private Node prevNode;
+        private int priority;
 
 
         public Node(Board b, int m, Node prev) {
             prevNode = prev;
             board = b;
             numMoves = m;
+            priority = -1;
         }
-
+        //Don't recompute manhattan score
+        private int score(){
+            if(priority == -1) {
+                priority = this.board.manhattan();
+                return priority;
+            }
+            else return priority;
+        }
         public int compareTo(Node other) {
-            int thisNodeScore = this.board.manhattan() + this.numMoves;
-            int otherNodeScore = other.board.manhattan() + other.numMoves;
-            return thisNodeScore - otherNodeScore;
+            int thisNodeScore = this.score() + this.numMoves;
+            int otherNodeScore = other.score() + other.numMoves;
+            if(thisNodeScore > otherNodeScore) return 1;
+            else if(thisNodeScore < otherNodeScore) return -1;
+            //Break ties
+            else{
+                if(this.numMoves > other.numMoves) return 1;
+                else return -1;
+            }
         }
 
         public boolean isGoal() {
