@@ -4,20 +4,13 @@ import edu.princeton.cs.algs4.StdOut;
 public class Board {
     private static final int SPACE = 0;
     private final int[][] tiles;
-    private int[][] goalBoard;
+    private int manhattanScore;
+    private int hammingScore;
 
     public Board(int[][] blocks) {
         tiles = Board.deepCopyIntMatrix(blocks);
-        goalBoard = new int[dimension()][dimension()];
-        //Initialize what the goal board, for future methods
-        int tile = 1;
-        for (int i = 0; i < dimension(); i++) {
-            for (int j = 0; j < dimension(); j++) {
-                if (i == dimension() - 1 && j == dimension() - 1) goalBoard[i][j] = SPACE;
-                else goalBoard[i][j] = tile;
-                tile += 1;
-            }
-        }
+        manhattanScore = -1;
+        hammingScore = -1;
     }
 
     private static int[][] deepCopyIntMatrix(int[][] input) {
@@ -30,52 +23,55 @@ public class Board {
         return result;
     }
 
-    public static void main(String[] args) {
-        int[][] arr = {{8, 1, 3}, {4, 0, 2}, {7, 6, 5}};
-        Board b = new Board(arr);
-        StdOut.println(b);
-        for (Board a : b.neighbors()) {
-            StdOut.println(a);
-        }
-    }
-
     public int dimension() {
         return tiles.length;
     }
 
     public int hamming() {
-        int hammingCount = 0;
-        for (int i = 0; i < dimension(); i++) {
-            for (int j = 0; j < dimension(); j++) {
-                if (tiles[i][j] != goalBoard[i][j] && tiles[i][j] != SPACE)
-                    hammingCount++; //Ignore 0, which doesn't count as tiles
+        if(hammingScore == -1) {
+            hammingScore = 0;
+            for (int i = 0; i < dimension(); i++) {
+                for (int j = 0; j < dimension(); j++) {
+                    if (tiles[i][j] != goalValueAt(i, j) && tiles[i][j] != SPACE) hammingScore++;
+                }
             }
         }
-        return hammingCount;
+        return hammingScore;
     }
 
-    public int manhattan() {
-        int manhattanCount = 0;
-        int a, b, val;
-        for (int i = 0; i < dimension(); i++) {
-            for (int j = 0; j < dimension(); j++) {
-                if (tiles[i][j] != SPACE) {
-                    val = tiles[i][j];
-                    a = (val - 1) / dimension();
-                    b = (val - 1) - a * dimension();
-                    manhattanCount += Math.abs(i - a); //x-coordinates
-                    manhattanCount += Math.abs(j - b); //y-coordinates
-                }
+    private int goalValueAt(int i, int j) {
+        if (isEnd(i, j)) {
+            return 0;
+        }
+        return 1 + i * dimension()  + j;
+    }
 
+    private boolean isEnd(int i, int j) {
+        return i == dimension() - 1 && j == dimension() - 1;
+    }
+    public int manhattan() {
+        if(manhattanScore == -1) {
+            manhattanScore = 0;
+            int a, b, val;
+            for (int i = 0; i < dimension(); i++) {
+                for (int j = 0; j < dimension(); j++) {
+                    if (tiles[i][j] != SPACE) {
+                        val = tiles[i][j];
+                        a = (val - 1) / dimension();
+                        b = (val - 1) - a * dimension();
+                        manhattanScore += Math.abs(i - a); //x-coordinates
+                        manhattanScore += Math.abs(j - b); //y-coordinates
+                    }
+                }
             }
         }
-        return manhattanCount;
+        return manhattanScore;
     }
 
     public boolean isGoal() {
         for (int i = 0; i < dimension(); i++) {
             for (int j = 0; j < dimension(); j++) {
-                if (tiles[i][j] != goalBoard[i][j]) return false;
+                if(tiles[i][j] != goalValueAt(i,j)) return false;
             }
         }
         return true;
@@ -100,8 +96,9 @@ public class Board {
             return false;
 
         Board that = (Board) x;
-        for (int i = 0; i < this.tiles.length; i++) {
-            for (int j = 0; j < this.tiles.length; j++) {
+        if(this.dimension() != that.dimension()) return false;
+        for (int i = 0; i < this.dimension(); i++) {
+            for (int j = 0; j < this.dimension(); j++) {
                 if(this.tiles[i][j] != that.tiles[i][j]) return false;
             }
         }

@@ -41,12 +41,17 @@ public class Solver {
             //Add Neighbors
             Node n;
             for (Board b : curNode.getNeighbors()) {
+                if(curNode.prevNode != null && curNode.prevNode.equals(b)) continue;
+                if (b.equals(initial)) continue;
                 n = new Node(b, curNode.numMoves + 1, curNode);
-                if (!b.equals(initial)) initPQ.insert(n);
+                initPQ.insert(n);
+
             }
             for (Board b : twinCurNode.getNeighbors()) {
+                if(twinCurNode.prevNode != null && twinCurNode.prevNode.equals(b)) continue;
+                if (b.equals(initialTwin)) continue;
                 n = new Node(b, twinCurNode.numMoves + 1, twinCurNode);
-                if (!b.equals(initialTwin)) twinPQ.insert(n);
+                twinPQ.insert(n);
             }
 
         }
@@ -102,6 +107,7 @@ public class Solver {
             }
             else return priority;
         }
+        @Override
         public int compareTo(Node other) {
             int thisNodeScore = this.score() + this.numMoves;
             int otherNodeScore = other.score() + other.numMoves;
