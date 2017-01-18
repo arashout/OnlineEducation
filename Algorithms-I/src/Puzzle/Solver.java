@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.MinPQ;
 import edu.princeton.cs.algs4.Stack;
+import Puzzle.Board;
 
 public class Solver {
     private MinPQ<Node> initPQ;
