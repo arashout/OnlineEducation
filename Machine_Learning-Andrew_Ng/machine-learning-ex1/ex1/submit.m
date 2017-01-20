@@ -1,5 +1,7 @@
 function submit()
-  addpath('./lib');
+  newPath = 'C:\Users\arash\Github\OnlineEducation\Machine_Learning-Andrew_Ng\machine-learning-ex1\ex1';
+  userpath(newPath);
+  addpath('C:\Users\arash\Github\OnlineEducation\Machine_Learning-Andrew_Ng\machine-learning-ex1\ex1\lib');
 
   conf.assignmentSlug = 'linear-regression';
   conf.itemName = 'Linear Regression with Multiple Variables';

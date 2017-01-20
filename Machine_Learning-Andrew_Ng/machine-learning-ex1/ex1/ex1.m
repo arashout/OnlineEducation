@@ -33,7 +33,7 @@ fprintf('5x5 Identity Matrix: \n');
 warmUpExercise()
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+%pause;
 
 
 %% ======================= Part 2: Plotting =======================
@@ -47,7 +47,7 @@ m = length(y); % number of training examples
 plotData(X, y);
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+%pause;
 
 %% =================== Part 3: Gradient descent ===================
 fprintf('Running Gradient Descent ...\n')
@@ -84,7 +84,7 @@ fprintf('For population = 70,000, we predict a profit of %f\n',...
     predict2*10000);
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
+%pause;
 
 %% ============= Part 4: Visualizing J(theta_0, theta_1) =============
 fprintf('Visualizing J(theta_0, theta_1) ...\n')
