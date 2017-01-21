@@ -103,8 +103,7 @@ fprintf('\n');
 % ====================== YOUR CODE HERE ======================
 % Recall that the first column of X is all-ones. Thus, it does
 % not need to be normalized.
-normalizedVector = ([1650, 3] - mu) ./ sigma;
-normalizedVector = [1, normalizedVector];
+normalizedVector = ([1650, 3] - mu)./
 price = normalizedVector * theta; % You should change this
 
 
