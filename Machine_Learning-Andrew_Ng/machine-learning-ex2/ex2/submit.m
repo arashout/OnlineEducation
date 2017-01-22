@@ -1,5 +1,6 @@
 function submit()
-  addpath('./lib');
+  [pathstr,~,~] = fileparts(mfilename('fullpath'));
+  addpath(fullfile(pathstr,'lib'));
 
   conf.assignmentSlug = 'logistic-regression';
   conf.itemName = 'Logistic Regression';

@@ -70,7 +70,7 @@ lambda = 1;
 fprintf('Cost at initial theta (zeros): %f\n', cost);
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
+%pause;
 
 %% ============= Part 2: Regularization and Accuracies =============
 %  Optional Exercise:
@@ -87,7 +87,7 @@ pause;
 initial_theta = zeros(size(X, 2), 1);
 
 % Set regularization parameter lambda to 1 (you should vary this)
-lambda = 1;
+lambda = 0.01;
 
 % Set Options
 options = optimset('GradObj', 'on', 'MaxIter', 400);
