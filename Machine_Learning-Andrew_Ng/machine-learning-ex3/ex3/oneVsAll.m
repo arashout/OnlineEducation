@@ -39,6 +39,7 @@ X = [ones(m, 1) X];
 %     % Set Initial theta
 %     initial_theta = zeros(n + 1, 1);
 %     
+
 %     % Set options for fminunc
 %     options = optimset('GradObj', 'on', 'MaxIter', 50);
 % 

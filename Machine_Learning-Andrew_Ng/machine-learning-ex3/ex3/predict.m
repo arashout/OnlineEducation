@@ -21,6 +21,19 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+%Add bias to X
+a1 = [ones(m, 1), X];
+%Compute z2 by multiplying inputs by weights of theta1 and summing
+z2 = a1 * Theta1';
+%Get a2 by applying sigmoid and adding bias
+a2 = [ones(m,1) ,sigmoid(z2)];
+%Compute z3 by multiplying inputs by weights of theta2 and summing
+z3 = a2 * Theta2';
+%Get a2 by applying sigmoid = output
+a3 = sigmoid(z3);
+%Get predictions by finding position of max element in each row -> Each
+%column represents class that fits best
+[~, p] = max(a3, [], 2);
 
 
 
