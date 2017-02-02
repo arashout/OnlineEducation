@@ -61,8 +61,27 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
-
-
+%Add bias to X
+a1 = [ones(m, 1), X];
+%Compute z2 by multiplying inputs by weights of theta1 and summing
+z2 = a1 * Theta1';
+%Get a2 by applying sigmoid and adding bias
+a2 = [ones(m,1) ,sigmoid(z2)];
+%Compute z3 by multiplying inputs by weights of theta2 and summing
+z3 = a2 * Theta2';
+%Get a2 by applying sigmoid = output
+a3 = sigmoid(z3);
+h = a3; %This is hypothesis
+%Transform y values into vectors, since that's what a3 looks like
+for i = 1: max(y)
+	Y(:,i) = (y==i);
+end
+normalJ = 0;
+for i=1:m
+  for k=1:num_labels
+    normalJ = normalJ + y(i) * log(a3) + (1-y) * log(1-a3);
+  end 
+end
 
 
 
