@@ -76,11 +76,12 @@ z3 = a2 * Theta2';
 %5000 training samples and 10 labels
 a3 = sigmoid(z3);
 h = a3;
-%Need y values to be vectors just like outputs
+
+%Transform y values into vectors, since that's what a3 looks like
+Y = zeros(m, num_labels);
 for i = 1: max(y)
 	Y(:,i) = (y==i);
 end
-
 
 normalJ = 0;
 for i = 1:m
