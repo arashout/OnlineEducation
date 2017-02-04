@@ -1,5 +1,6 @@
 function submitWithConfiguration(conf)
-  addpath('./lib/jsonlab');
+  [pathstr,~,~] = fileparts(mfilename('fullpath'));
+  addpath(fullfile(pathstr,'jsonlab'));
 
   parts = parts(conf);
 

@@ -1,5 +1,6 @@
 function submit()
-  addpath('./lib');
+  [pathstr,~,~] = fileparts(mfilename('fullpath'));
+  addpath(fullfile(pathstr,'lib'));
 
   conf.assignmentSlug = 'neural-network-learning';
   conf.itemName = 'Neural Networks Learning';
