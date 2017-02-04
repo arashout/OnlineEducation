@@ -107,9 +107,14 @@ J = -normalJ/m + reg;
 %%%%%%%%%%%%%%%%%%%%
 %BACK PROPAGATION- GRADIENTS
 %%%%%%%%%%%%%%%%%%%%
+delta3 = a3 - Y;
+%Need to get rid of bias and make transverse to make dimesions work !
+tempDelta2 = Theta2' * delta3';
+tempDelta2 = tempDelta2(2:end,:)';
+delta2 = tempDelta2 .* sigmoidGradient(z2);
 
-
-
+Theta2_grad = (1/m)*delta3'*a2;
+Theta1_grad = (1/m)*delta2'*a1;
 
 
 
