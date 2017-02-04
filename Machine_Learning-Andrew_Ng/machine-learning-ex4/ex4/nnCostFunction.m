@@ -1,4 +1,4 @@
-function [J grad] = nnCostFunction(nn_params, ...
+function [J, grad] = nnCostFunction(nn_params, ...
                                    input_layer_size, ...
                                    hidden_layer_size, ...
                                    num_labels, ...
@@ -62,10 +62,33 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+%FORWARD PROPOGATION
+%Add bias to X
+a1 = [ones(m, 1), X];
+%Compute z2 by multiplying inputs by weights of theta1 and summing
+z2 = a1 * Theta1';
+%Get a2 by applying sigmoid and adding bias
+a2 = [ones(m,1) ,sigmoid(z2)];
+%Compute z3 by multiplying inputs by weights of theta2 and summing
+z3 = a2 * Theta2';
+%Get a2 by applying sigmoid = output
+%Basically at this point I have a hypothesis matrix with 5000x10 
+%5000 training samples and 10 labels
+a3 = sigmoid(z3);
+h = a3;
+%Need y values to be vectors just like outputs
+for i = 1: max(y)
+	Y(:,i) = (y==i);
+end
 
 
-
-
+normalJ = 0;
+for i = 1:m
+    for k = 1:num_labels
+        normalJ = normalJ + Y(i,k) * log(h(i,k)) + (1 - Y(i,k))*log(1-h(i,k));
+    end
+end
+J = -normalJ/m;
 
 
 
