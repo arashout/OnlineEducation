@@ -147,7 +147,6 @@ fprintf('Normalized Training Example 1:\n');
 fprintf('  %f  \n', X_poly(1, :));
 
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
 
 
 
@@ -158,7 +157,7 @@ pause;
 %  lambda to see how the fit and learning curve change.
 %
 
-lambda = 0;
+lambda = 10;
 [theta] = trainLinearReg(X_poly, y, lambda);
 
 % Plot training data and fit
@@ -187,7 +186,6 @@ for i = 1:m
 end
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
 
 %% =========== Part 8: Validation for Selecting Lambda =============
 %  You will now implement validationCurve to test various values of 
@@ -211,4 +209,3 @@ for i = 1:length(lambda_vec)
 end
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
