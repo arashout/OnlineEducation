@@ -67,7 +67,6 @@ fprintf(['Gradient at theta = [1 ; 1]:  [%f; %f] '...
          grad(1), grad(2));
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
 
 
 %% =========== Part 4: Train Linear Regression =============
@@ -93,7 +92,6 @@ hold off;
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
-
 
 %% =========== Part 5: Learning Curve for Linear Regression =============
 %  Next, you should implement the learningCurve function. 
@@ -121,7 +119,6 @@ for i = 1:m
 end
 
 fprintf('Program paused. Press enter to continue.\n');
-pause;
 
 %% =========== Part 6: Feature Mapping for Polynomial Regression =============
 %  One solution to this is to use polynomial regression. You should now
