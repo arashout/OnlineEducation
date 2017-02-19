@@ -36,18 +36,14 @@ end
 errorMatrix = zeros(paraSize);
 for i = 1:paraSize
     for j = 1:paraSize
-        model= svmTrain(X, y, cList(i), @(x1, x2) gaussianKernel(x1, x2, sigmaList(j))); 
-        predictions = svmPredict(model, Xval);
-        errorMatrix(i,j) = mean(double(predictions ~= yval));
+        er
     end
 end
 
 
-minMatrix = min(errorMatrix(:));
-[row,col] = find(errorMatrix==minMatrix);
 
-C = cList(row(1));
-sigma = sigmaList(col(1));
+
+
 
 % =========================================================================
 
