@@ -1,5 +1,6 @@
 function submit()
-  addpath('./lib');
+  [pathstr,~,~] = fileparts(mfilename('fullpath'));
+  addpath(fullfile(pathstr,'lib'));
 
   conf.assignmentSlug = 'support-vector-machines';
   conf.itemName = 'Support Vector Machines';
