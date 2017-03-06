@@ -90,7 +90,6 @@ fprintf('\nEvaluating the trained Linear SVM on a test set ...\n')
 p = svmPredict(model, Xtest);
 
 fprintf('Test Accuracy: %f\n', mean(double(p == ytest)) * 100);
-pause;
 
 
 %% ================= Part 5: Top Predictors of Spam ====================
@@ -112,7 +111,6 @@ end
 
 fprintf('\n\n');
 fprintf('\nProgram paused. Press enter to continue.\n');
-pause;
 
 %% =================== Part 6: Try Your Own Emails =====================
 %  Now that you've trained the spam classifier, you can use it on your own
