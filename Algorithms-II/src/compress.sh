@@ -10,7 +10,7 @@ do
 done
 
 zipPath=$(basename $1)
-rm -r $zipPath
+rm -r $zipPath.zip
 
 echo "Creating zip: $zipPath"
 zip -r -j $zipPath $tempPath 

@@ -5,12 +5,13 @@ import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.StdOut;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
-import java.util.ArrayDeque;
+import java.util.Set;
 
 public class SAP {
     private Digraph digraph;
@@ -23,6 +24,14 @@ public class SAP {
             this.distance = distance;
             this.ancesterID = ancesterID;
         }
+    }
+    private int getIntersection(Set<Integer> setA, Set<Integer> setB){
+        for (Integer i : setA){
+            if(setB.contains(i)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     private SAPResult sapBFS(Iterable<Integer> v, Iterable<Integer> w) {
@@ -55,22 +64,24 @@ public class SAP {
             distToB.put(i, 0);
             qB.add(i);
         }
+        int ancestor = getIntersection(markedA, markedB);
+        if(ancestor != -1){
+            return new SAPResult(ancestor, distToA.get(ancestor) + distToB.get(ancestor));
+        }
 
-        int ancestor = -1;
-        while (!qA.isEmpty() && !qB.isEmpty()) {
+        while (!qA.isEmpty() || !qB.isEmpty()) {
             // qA
             if (!qA.isEmpty()) {
                 int curA = qA.remove();
-                // Common ancestor found!
-                if (markedB.contains(curA)) {
-                    ancestor = curA;
-                    break;
-                }
                 for (int u : digraph.adj(curA)) {
                     if (!markedA.contains(u)) {
                         distToA.put(u, distToA.get(curA) + 1);
                         markedA.add(u);
                         qA.add(u);
+                    }
+                    // Common ancestor found
+                    if( markedB.contains(u) ){
+                        return new SAPResult(u, distToA.get(u) + distToB.get(u));
                     }
                 }
             }
@@ -78,27 +89,22 @@ public class SAP {
             // qB
             if (!qB.isEmpty()) {
                 int curB = qB.remove();
-                // Common ancestor found!
-                if (markedA.contains(curB)) {
-                    ancestor = curB;
-                    break;
-                }
                 for (int u : digraph.adj(curB)) {
                     if (!markedB.contains(u)) {
                         distToB.put(u, distToB.get(curB) + 1);
                         markedB.add(u);
                         qB.add(u);
                     }
-
+                    // Common ancestor found
+                    if( markedA.contains(u) ){
+                        return new SAPResult(u, distToA.get(u) + distToB.get(u));
+                    }
                 }
             }
         }
 
-        if (ancestor == -1) {
-            return new SAPResult(-1, -1);
-        }
-        return new SAPResult(ancestor, distToA.get(ancestor) + distToB.get(ancestor));
 
+        return new SAPResult(-1, -1);
     }
 
     // constructor takes a digraph (not necessarily a DAG)
@@ -142,9 +148,10 @@ public class SAP {
 
     // do unit testing of this class
     public static void main(String[] args) {
-        In in  = new In("test/digraph1.txt");
+        In in  = new In("test/digraph2.txt");
         Digraph G = new Digraph(in);
         SAP sap = new SAP(G);
         StdOut.println(sap.length(3, 3));
+        StdOut.println(sap.length(3, 1));
     }
 }

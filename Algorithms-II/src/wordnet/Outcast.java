@@ -26,5 +26,4 @@ public class Outcast {
         return nouns[maxIndex];
 
     }
-    public static void main(String[] args){}
 }
